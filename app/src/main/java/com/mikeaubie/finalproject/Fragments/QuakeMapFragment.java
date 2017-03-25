@@ -14,7 +14,10 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.mikeaubie.finalproject.Models.EarthQuake;
+import com.mikeaubie.finalproject.Models.EarthQuakes;
 import com.mikeaubie.finalproject.R;
 
 /**
@@ -46,33 +49,36 @@ public class QuakeMapFragment extends Fragment {
       @Override
       public void onMapReady(GoogleMap mMap) {
         gMap = mMap;
-//        for (int index = 0; index < MapMarkers.gMapPoints.size(); index++) {
-//         // LatLng newMarker = MapMarkers.gMapPoints.get(index).getLocation();
-////          gMap.addMarker(new MarkerOptions()
-////                  .position(newMarker)
-////                  .title(MapMarkers.gMapPoints.get(index).getTitle())
-////                  .snippet(MapMarkers.gMapPoints.get(index)
-////                          .getDescription()));
-//        }
 
+        gMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+          @Override
+          public View getInfoWindow(Marker marker) {
+            return null;
+          }
+          @Override
+          public View getInfoContents(Marker marker) {
+            View view = getActivity().getLayoutInflater().inflate(
+                    R.layout.quake_info_marker, null);
+            return view;
+          }
+        });
+
+        for (int index = 0; index < EarthQuakes.mEarthQuakeList.size(); index++) {
+          LatLng newMarker = EarthQuakes.mEarthQuakeList.get(index).getLocation();
+          gMap.addMarker(new MarkerOptions()
+                  .position(newMarker)
+                  .title(EarthQuakes.mEarthQuakeList.get(index).getLocationDescription())
+                  .snippet(EarthQuakes.mEarthQuakeList.get(index).getMagnitude().toString()));
+        }
 
 
         LatLng northIslandCollege = new LatLng(49.708652, -124.971147);
-        CameraPosition cameraPosition = new CameraPosition.Builder().target(northIslandCollege).zoom(15).build();
+        CameraPosition cameraPosition = new CameraPosition.Builder().target(northIslandCollege).zoom(3).build();
         gMap.animateCamera(CameraUpdateFactory
                 .newCameraPosition(cameraPosition));
       }
     });
     return rootView;
   }
-//
-//  public static MyMapFragment newInstance(String param1, String param2) {
-//    MyMapFragment fragment = new MyMapFragment();
-//    Bundle args = new Bundle();
-//    args.putString(ARG_PARAM1, param1);
-//    args.putString(ARG_PARAM2, param2);
-//    fragment.setArguments(args);
-//    return fragment;
-//  }
 
 }

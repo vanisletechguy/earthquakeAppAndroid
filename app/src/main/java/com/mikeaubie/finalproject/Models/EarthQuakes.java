@@ -19,7 +19,7 @@ public class EarthQuakes {
   public static void generateQuakes() {
 
     if(mEarthQuakeList.isEmpty())mEarthQuakeList = new ArrayList<>();
-    LatLng newCoord = new LatLng(30, 30);
+    LatLng newCoord = new LatLng(30, -124.971147);
     Date date = new Date();
     int localTimeUTCOffset = -10800;
     int localTimeDSTOffset = 3600;
