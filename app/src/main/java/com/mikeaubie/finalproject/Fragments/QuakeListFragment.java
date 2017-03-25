@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +24,7 @@ import java.util.ArrayList;
 public class QuakeListFragment extends Fragment {
 
   private QuakeAdapter quakeAdapter = null;
-
+  private Toolbar toolbar;
   public QuakeListFragment() {
     // Required empty public constructor
   }
@@ -35,8 +36,16 @@ public class QuakeListFragment extends Fragment {
     // Inflate the layout for this fragment
     View view = inflater.inflate(R.layout.fragment_quake_list, container, false);
 
+    setUpToolbar(view);
+
     setupRecyclerView(view);
     return view;
+  }
+
+  private void setUpToolbar(View view) {
+    toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+    toolbar.setTitle("Assignment5");
+    toolbar.inflateMenu(R.menu.menu_list);
   }
 
   private void setupRecyclerView(View v) {
