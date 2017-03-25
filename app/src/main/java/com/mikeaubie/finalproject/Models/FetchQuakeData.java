@@ -10,6 +10,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
@@ -18,6 +19,8 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.*;
 import java.io.*;
+import java.util.Iterator;
+
 import org.json.*;
 /**
  * Created by Family on 3/24/2017.
@@ -29,26 +32,42 @@ public class FetchQuakeData {
     final String url = "http://www.earthquakescanada.nrcan.gc.ca/api/v2/locations/latest/7d.json";
 
     JSONObject newObject = new JSONObject();
-    JsonObjectRequest jsonArrayRequest = new JsonObjectRequest
+    JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
             (Request.Method.GET, url, newObject, new Response.Listener<JSONObject>() {
 
 
               @Override
               public void onResponse(JSONObject response) {
-                //mTxtDisplay.setText("Response: " + response.toString());
-                //Toast.makeText(context, response.toString(), Toast.LENGTH_LONG).show();
+
                 EarthQuakes.generateQuakes(); ///to test for response
                 try {
-                  JSONObject quake = response.getJSONObject("metadata");
-                  //JSONArray newarray = quake.getJSONArray("request");
-                 // String dateCreated = quake.getString("dateCreated");
-                  //JSONArray names = quake.getJSONArray("request");
+
+                  Iterator<?> keys = response.keys(); ///returns in reverse order
+
+                  while( keys.hasNext() ) {
+                    String key = (String)keys.next();
+                    //Toast.makeText(context, key, Toast.LENGTH_LONG).show();
+                    //itterates over the keys
+                    if ( response.get(key) instanceof JSONObject ) {
+
+                        JSONObject currentChild = (JSONObject)response.get(key);
+                        if(key.equalsIgnoreCase("metadata")) {
+                          Toast.makeText(context, key, Toast.LENGTH_LONG).show();
+                        } else {
+                          Toast.makeText(context, (currentChild.get("magnitude")).toString(), Toast.LENGTH_LONG).show();
+                        }
+
+                    }
+                  }
 
 
-                  JSONObject request = (JSONObject)quake.get("request");
-                  String strRequest = (String) request.get("dateCreated");
-                  //String dateCreated = strRequest.toString();
-                  Toast.makeText(context, strRequest, Toast.LENGTH_LONG).show();
+
+                  //JSONObject quake = response.getJSONObject("metadata");
+                  JSONObject quake = response.getJSONObject("20170324.1002002");
+                  Double magnitude = (double)quake.get("magnitude");
+
+
+//                  Toast.makeText(context, magnitude.toString(), Toast.LENGTH_LONG).show();
                 }catch (JSONException ex) {
                   Toast.makeText(context, "ERROR: " + ex.toString(), Toast.LENGTH_LONG).show();
                 }
@@ -64,7 +83,7 @@ public class FetchQuakeData {
 
               }
             });
-    Volley.newRequestQueue(context.getApplicationContext()).add(jsonArrayRequest);
+    Volley.newRequestQueue(context.getApplicationContext()).add(jsonObjectRequest);
 
 
 
