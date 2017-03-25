@@ -20,6 +20,9 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.*;
 import java.io.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 
@@ -49,6 +52,14 @@ public class FetchQuakeData {
                         JSONArray coordArray = (JSONArray) coordObject.get("coordinates");
                         LatLng newCoord = new LatLng(Double.parseDouble(coordArray.get(0).toString()), Double.parseDouble(coordArray.get(1).toString()));
                         Date date = new Date(); ///  origin_time
+                        String newDate = (String) currentChild.get("origin_time");
+                        DateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+                        try {
+                          long newTime = dateformat.parse(newDate).getTime();
+                          date.setTime(dateformat.parse(newDate).getTime());
+                        } catch (ParseException ex) {
+                          Toast.makeText(context, "FAILED on DATE", Toast.LENGTH_LONG).show();
+                        }
                         int localTimeUTCOffset = Integer.parseInt(currentChild.get("local_time_utc_offset").toString());
                         int localTimeDSTOffset = Integer.parseInt(currentChild.get("local_time_dst_offset").toString());
                         double depthInKM = Double.parseDouble(currentChild.get("depth").toString());
@@ -61,8 +72,6 @@ public class FetchQuakeData {
                       }
                     }
                   }
-                  JSONObject quake = response.getJSONObject("20170324.1002002");
-                  Double magnitude = (double) quake.get("magnitude");
                 } catch (JSONException ex) {
                   Toast.makeText(context, "ERROR: " + ex.toString(), Toast.LENGTH_LONG).show();
                 }
@@ -74,7 +83,6 @@ public class FetchQuakeData {
                 // TODO Auto-generated method stub
                 Toast.makeText(context, error.toString(), Toast.LENGTH_LONG).show();
                 //System.out.print(error);
-
               }
             });
 

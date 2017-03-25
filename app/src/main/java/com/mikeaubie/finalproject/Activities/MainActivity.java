@@ -29,28 +29,23 @@ import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
 
-
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-
-    WelcomeFragment welcomeFragment = new WelcomeFragment();
-    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-    ft.add(R.id.flContainer, welcomeFragment);
-    ft.commit();
-
-
+    if(savedInstanceState == null) {
+      WelcomeFragment welcomeFragment = new WelcomeFragment();
+      FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+      ft.add(R.id.flContainer, welcomeFragment);
+      ft.commit();
+    }
   }
 
   public void fetchData(View v) {
-    //EarthQuakes.generateQuakes();
-    int numberOfQuakes = EarthQuakes.mEarthQuakeList.size();
-    Toast.makeText(this.getApplicationContext(), "generated " + numberOfQuakes + " Quakes", Toast.LENGTH_SHORT).show();
-    FetchQuakeData fetchedData = new FetchQuakeData(this);
-
-
+    if(EarthQuakes.mEarthQuakeList.size()<1) {
+      FetchQuakeData fetchedData = new FetchQuakeData(this);
+    }
   }
 
   public void showData(View v) {

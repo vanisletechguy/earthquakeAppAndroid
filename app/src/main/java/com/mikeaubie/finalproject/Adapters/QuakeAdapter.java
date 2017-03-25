@@ -65,9 +65,9 @@ public class QuakeAdapter extends
 
     public void setData(EarthQuake currentObj, int position) {
 
-      this.description.setText(currentObj.getLocationDescription());
+      this.description.setText("Date: " + currentObj.getDate().toString());
       this.location.setText(currentObj.getLocation().toString());
-      this.magnitude.setText("Magnitude: " + currentObj.getMagnitude().toString());
+      this.magnitude.setText("Date: " + currentObj.getDate().toString());
       this.date.setText(currentObj.getDate().toString());
       this.current = currentObj;
     }
