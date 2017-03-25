@@ -8,16 +8,26 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.maps.MapFragment;
 import com.mikeaubie.finalproject.Fragments.QuakeListFragment;
 import com.mikeaubie.finalproject.Fragments.QuakeMapFragment;
 import com.mikeaubie.finalproject.Fragments.WelcomeFragment;
 import com.mikeaubie.finalproject.Models.EarthQuake;
 import com.mikeaubie.finalproject.Models.EarthQuakes;
+import com.mikeaubie.finalproject.Models.FetchQuakeData;
 import com.mikeaubie.finalproject.R;
 
-public class MainActivity extends AppCompatActivity {
+import org.json.JSONArray;
+import org.json.JSONObject;
 
+public class MainActivity extends AppCompatActivity {
 
 
   @Override
@@ -32,13 +42,15 @@ public class MainActivity extends AppCompatActivity {
     ft.commit();
 
 
-
   }
 
   public void fetchData(View v) {
     EarthQuakes.generateQuakes();
     int numberOfQuakes = EarthQuakes.mEarthQuakeList.size();
     Toast.makeText(this.getApplicationContext(), "generated " + numberOfQuakes + " Quakes", Toast.LENGTH_SHORT).show();
+    FetchQuakeData fetchedData = new FetchQuakeData(this);
+
+
   }
 
   public void showData(View v) {
@@ -52,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
   public void showMap(View v) {
     QuakeMapFragment quakeMapFragment = new QuakeMapFragment();
     FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-    ft.replace(R.id.flContainer, quakeMapFragment );
+    ft.replace(R.id.flContainer, quakeMapFragment);
     ft.commit();
   }
 }
