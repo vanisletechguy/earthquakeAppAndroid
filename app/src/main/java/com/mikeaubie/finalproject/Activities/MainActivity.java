@@ -3,8 +3,10 @@ package com.mikeaubie.finalproject.Activities;
 import android.content.Context;
 
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
 
@@ -16,6 +18,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.maps.MapFragment;
+import com.mikeaubie.finalproject.Fragments.NavigationDrawerFragment;
 import com.mikeaubie.finalproject.Fragments.QuakeListFragment;
 import com.mikeaubie.finalproject.Fragments.QuakeMapFragment;
 import com.mikeaubie.finalproject.Fragments.WelcomeFragment;
@@ -28,6 +31,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
+  public NavigationDrawerFragment drawerFragment = null;
+  private Toolbar toolbar;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +44,23 @@ public class MainActivity extends AppCompatActivity {
       FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
       ft.add(R.id.flContainer, welcomeFragment);
       ft.commit();
+      setUpToolbar();
+      setUpNavDrawer();
     }
+  }
+
+  private void setUpToolbar() {
+    toolbar = (Toolbar) findViewById(R.id.toolbar);
+    toolbar.setTitle("Assignment5");
+    toolbar.inflateMenu(R.menu.menu_list);
+  }
+
+  void setUpNavDrawer() {
+    drawerFragment = (NavigationDrawerFragment) getSupportFragmentManager()
+            .findFragmentById(R.id.nav_drwr_fragment);
+    DrawerLayout drawerLayout =
+            (DrawerLayout) findViewById(R.id.drawer_layout);
+    drawerFragment.setUpDrawer(drawerLayout, toolbar);
   }
 
   public void fetchData(View v) {

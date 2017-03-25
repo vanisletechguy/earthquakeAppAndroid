@@ -3,6 +3,9 @@ package com.mikeaubie.finalproject.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,6 +28,7 @@ public class QuakeListFragment extends Fragment {
 
   private QuakeAdapter quakeAdapter = null;
   private Toolbar toolbar;
+ // public NavigationDrawerFragment drawerFragment = null;
   public QuakeListFragment() {
     // Required empty public constructor
   }
@@ -39,8 +43,17 @@ public class QuakeListFragment extends Fragment {
     setUpToolbar(view);
 
     setupRecyclerView(view);
+    //setUpNavDrawer();
     return view;
   }
+
+//  void setUpNavDrawer() {
+//    drawerFragment = (NavigationDrawerFragment) getSupportFragmentManager()
+//            .findFragmentById(R.id.nav_drwr_fragment);
+//    DrawerLayout drawerLayout =
+//            (DrawerLayout) findViewById(R.id.drawer_layout);
+//    drawerFragment.setUpDrawer(drawerLayout, toolbar);
+//  }
 
   private void setUpToolbar(View view) {
     toolbar = (Toolbar) view.findViewById(R.id.toolbar);
