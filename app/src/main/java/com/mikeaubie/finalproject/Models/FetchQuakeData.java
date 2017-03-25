@@ -40,7 +40,15 @@ public class FetchQuakeData {
                 EarthQuakes.generateQuakes(); ///to test for response
                 try {
                   JSONObject quake = response.getJSONObject("metadata");
-                  Toast.makeText(context, quake.toString(), Toast.LENGTH_LONG).show();
+                  //JSONArray newarray = quake.getJSONArray("request");
+                 // String dateCreated = quake.getString("dateCreated");
+                  //JSONArray names = quake.getJSONArray("request");
+
+
+                  JSONObject request = (JSONObject)quake.get("request");
+                  String strRequest = (String) request.get("dateCreated");
+                  //String dateCreated = strRequest.toString();
+                  Toast.makeText(context, strRequest, Toast.LENGTH_LONG).show();
                 }catch (JSONException ex) {
                   Toast.makeText(context, "ERROR: " + ex.toString(), Toast.LENGTH_LONG).show();
                 }
