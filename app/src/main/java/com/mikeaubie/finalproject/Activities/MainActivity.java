@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.mikeaubie.finalproject.Fragments.QuakeListFragment;
 import com.mikeaubie.finalproject.Fragments.WelcomeFragment;
 import com.mikeaubie.finalproject.Models.EarthQuake;
 import com.mikeaubie.finalproject.Models.EarthQuakes;
@@ -40,6 +41,10 @@ public class MainActivity extends AppCompatActivity {
 
   public void showData(View v) {
 
+    QuakeListFragment quakeListFragment = new QuakeListFragment();
+    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+    ft.replace(R.id.flContainer, quakeListFragment);
+    ft.commit();
   }
 
   public void showMap(View v) {

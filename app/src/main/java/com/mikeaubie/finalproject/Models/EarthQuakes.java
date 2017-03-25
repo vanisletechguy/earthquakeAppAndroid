@@ -10,14 +10,15 @@ import java.util.Date;
  */
 
 public class EarthQuakes {
-  public static ArrayList<EarthQuake> mEarthQuakeList;
+  public static ArrayList<EarthQuake> mEarthQuakeList = new ArrayList<>();
 
 
   public EarthQuakes() {
   }
 
   public static void generateQuakes() {
-    mEarthQuakeList = new ArrayList<>();
+
+    if(mEarthQuakeList.isEmpty())mEarthQuakeList = new ArrayList<>();
     LatLng newCoord = new LatLng(30, 30);
     Date date = new Date();
     int localTimeUTCOffset = -10800;
