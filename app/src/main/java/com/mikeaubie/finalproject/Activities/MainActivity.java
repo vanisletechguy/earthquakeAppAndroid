@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
   }
 
   public void fetchData(View v) {
-    EarthQuakes.generateQuakes();
+    //EarthQuakes.generateQuakes();
     int numberOfQuakes = EarthQuakes.mEarthQuakeList.size();
     Toast.makeText(this.getApplicationContext(), "generated " + numberOfQuakes + " Quakes", Toast.LENGTH_SHORT).show();
     FetchQuakeData fetchedData = new FetchQuakeData(this);
