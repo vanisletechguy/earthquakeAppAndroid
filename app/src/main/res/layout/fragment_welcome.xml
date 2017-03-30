@@ -7,23 +7,33 @@ android:layout_height="match_parent"
 android:orientation="vertical"
 tools:context="com.mikeaubie.finalproject.Fragments.WelcomeFragment">
 
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Earthquake App"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintLeft_toLeftOf="parent"
-    app:layout_constraintRight_toRightOf="parent"
-    app:layout_constraintTop_toTopOf="parent"/>
 
-<Button
-    android:id="@+id/generateData"
+
+    <Button
+    android:id="@+id/generateData7Day"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="FetchData"
-    android:onClick="fetchData"
+    android:text="Get Earthquake Data for the last 7 days"
+    android:onClick="fetchData7Day"
     />
-<Button
+
+    <Button
+        android:id="@+id/generateData30Day"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="fetchData30Day"
+        android:text="Get Earthquake Data for the last 30 days"
+        />
+
+    <Button
+        android:id="@+id/generateData1Year"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="fetchData1Year"
+        android:text="Get Earthquake Data for the last 1 year"
+        />
+
+    <Button
     android:id="@+id/showData"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"

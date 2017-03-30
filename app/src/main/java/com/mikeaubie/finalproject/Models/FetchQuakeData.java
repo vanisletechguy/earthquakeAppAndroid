@@ -33,8 +33,8 @@ import org.json.*;
  */
 
 public class FetchQuakeData {
-  public FetchQuakeData(final Context context) {
-    final String url = "http://www.earthquakescanada.nrcan.gc.ca/api/v2/locations/latest/7d.json";
+  public FetchQuakeData(final Context context, final String url) {
+
     JSONObject newObject = new JSONObject();
     JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
             (Request.Method.GET, url, newObject, new Response.Listener<JSONObject>() {

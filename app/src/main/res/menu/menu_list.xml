@@ -2,22 +2,31 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <group
+        android:id="@+id/exclusive_checkable_group"
+        android:checkableBehavior="all">
     <item
-        android:id="@+id/normal"
+        android:id="@+id/filterByDate"
         android:orderInCategory="100"
-        android:title="Sort by Date"
-        app:showAsAction="never"/>
-
-    <item
-        android:id="@+id/hybrid"
-        android:orderInCategory="100"
-        android:title="Sort by Magnitude"
+        android:title="Filter by Date"
         app:showAsAction="never"
+        android:onClick="filterByDate"
         />
 
     <item
-        android:id="@+id/terrain"
+        android:id="@+id/filterByMagnitude"
         android:orderInCategory="100"
-        android:title="Sort by proximity"
-        app:showAsAction="never"/>
+        android:title="Filter by Magnitude"
+        app:showAsAction="never"
+        android:onClick="filterByMagnitude"
+        />
+
+    <item
+        android:id="@+id/filterByProximity"
+        android:orderInCategory="100"
+        android:title="Filter by proximity"
+        app:showAsAction="never"
+        android:onClick="filterByProximity"
+        />
+    </group>
 </menu>

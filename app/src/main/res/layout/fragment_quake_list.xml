@@ -6,9 +6,7 @@
              tools:context="com.mikeaubie.finalproject.Fragments.QuakeListFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar"/>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

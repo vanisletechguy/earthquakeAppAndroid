@@ -1,6 +1,5 @@
 package com.mikeaubie.finalproject.Fragments;
 
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -16,7 +15,6 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.mikeaubie.finalproject.Models.EarthQuake;
 import com.mikeaubie.finalproject.Models.EarthQuakes;
 import com.mikeaubie.finalproject.R;
 
@@ -70,7 +68,6 @@ public class QuakeMapFragment extends Fragment {
                   .title(EarthQuakes.mEarthQuakeList.get(index).getLocationDescription())
                   .snippet(EarthQuakes.mEarthQuakeList.get(index).getMagnitude().toString()));
         }
-
 
         LatLng northIslandCollege = new LatLng(49.708652, -124.971147);
         CameraPosition cameraPosition = new CameraPosition.Builder().target(northIslandCollege).zoom(3).build();

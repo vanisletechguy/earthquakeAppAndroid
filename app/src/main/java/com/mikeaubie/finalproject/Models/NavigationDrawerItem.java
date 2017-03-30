@@ -45,21 +45,13 @@ public class NavigationDrawerItem {
     return dataList;
   }
 
-//  private static int[] getImages() {
-//
-//    return new int[]{
-//            R.drawable.ic_birds, R.drawable.ic_animal,
-//            R.drawable.ic_forest, R.drawable.ic_ocean,
-//            R.drawable.ic_planet, R.drawable.ic_landscape};
-//  }
-
   private static String[] getTitles() {
     return new String[]{
-            "Start MarkerFragment",
-            "Start IconMarkerFragment",
-            "Start InfoMarkerFragment",
-            "Start DragMarkerFragment",
-            "Start GeoCoderFragment",
+            "Welcome Screen",
+            "EarthQuake List View",
+            "EarthQuake Map View",
+            "Notifications Settings",
+            "About Application",
     };
   }
 }

@@ -1,45 +1,37 @@
 package com.mikeaubie.finalproject.Activities;
 
-import android.content.Context;
-
+import android.content.DialogInterface;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.JsonRequest;
-import com.android.volley.toolbox.Volley;
-import com.google.android.gms.maps.MapFragment;
 import com.mikeaubie.finalproject.Fragments.NavigationDrawerFragment;
 import com.mikeaubie.finalproject.Fragments.QuakeListFragment;
 import com.mikeaubie.finalproject.Fragments.QuakeMapFragment;
 import com.mikeaubie.finalproject.Fragments.WelcomeFragment;
-import com.mikeaubie.finalproject.Models.EarthQuake;
 import com.mikeaubie.finalproject.Models.EarthQuakes;
 import com.mikeaubie.finalproject.Models.FetchQuakeData;
 import com.mikeaubie.finalproject.R;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 public class MainActivity extends AppCompatActivity {
   public NavigationDrawerFragment drawerFragment = null;
   private Toolbar toolbar;
+  String alertResponse = "";
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    if(savedInstanceState == null) {
+    if (savedInstanceState == null) {
       WelcomeFragment welcomeFragment = new WelcomeFragment();
       FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
       ft.add(R.id.flContainer, welcomeFragment);
@@ -55,6 +47,99 @@ public class MainActivity extends AppCompatActivity {
     toolbar.inflateMenu(R.menu.menu_list);
   }
 
+  public boolean filterByDate(final MenuItem item) {
+    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    builder.setTitle("Within how many days?");
+  // Set up the input
+    final EditText input = new EditText(this);
+  // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+    input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_CLASS_NUMBER);
+    builder.setView(input);
+
+  // Set up the buttons
+    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+      @Override
+      public void onClick(DialogInterface dialog, int which) {
+        alertResponse = input.getText().toString();
+        Toast.makeText(getApplicationContext(), alertResponse, Toast.LENGTH_LONG).show();
+        item.setChecked(true);
+      }
+    });
+    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+      @Override
+      public void onClick(DialogInterface dialog, int which) {
+        dialog.cancel();
+        item.setChecked(false);
+      }
+    });
+
+    builder.show();
+
+    return true;
+  }
+
+  public boolean filterByMagnitude(final MenuItem item) {
+    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    builder.setTitle("Show only Magnitudes Above this value:");
+  // Set up the input
+    final EditText input = new EditText(this);
+  // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+    input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+    builder.setView(input);
+
+  // Set up the buttons
+    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+      @Override
+      public void onClick(DialogInterface dialog, int which) {
+        alertResponse = input.getText().toString();
+        Toast.makeText(getApplicationContext(), alertResponse, Toast.LENGTH_LONG).show();
+        item.setChecked(true);
+      }
+    });
+    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+      @Override
+      public void onClick(DialogInterface dialog, int which) {
+        dialog.cancel();
+        item.setChecked(false);
+      }
+    });
+
+    builder.show();
+
+    return true;
+  }
+
+  public boolean filterByProximity(final MenuItem item) {
+    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    builder.setTitle("Within how many km?");
+  // Set up the input
+    final EditText input = new EditText(this);
+  // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+    input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+    builder.setView(input);
+
+  // Set up the buttons
+    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+      @Override
+      public void onClick(DialogInterface dialog, int which) {
+        alertResponse = input.getText().toString();
+        Toast.makeText(getApplicationContext(), alertResponse, Toast.LENGTH_LONG).show();
+        item.setChecked(true);
+      }
+    });
+    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+      @Override
+      public void onClick(DialogInterface dialog, int which) {
+        dialog.cancel();
+        item.setChecked(false);
+      }
+    });
+
+    builder.show();
+    
+    return true;
+  }
+
   void setUpNavDrawer() {
     drawerFragment = (NavigationDrawerFragment) getSupportFragmentManager()
             .findFragmentById(R.id.nav_drwr_fragment);
@@ -63,9 +148,24 @@ public class MainActivity extends AppCompatActivity {
     drawerFragment.setUpDrawer(drawerLayout, toolbar);
   }
 
-  public void fetchData(View v) {
-    if(EarthQuakes.mEarthQuakeList.size()<1) {
-      FetchQuakeData fetchedData = new FetchQuakeData(this);
+  public void fetchData7Day(View v) {
+    if (EarthQuakes.mEarthQuakeList.size() < 1) {
+      final String url = "http://www.earthquakescanada.nrcan.gc.ca/api/v2/locations/latest/7d.json";
+      FetchQuakeData fetchedData = new FetchQuakeData(this, url);
+    }
+  }
+
+  public void fetchData30Day(View v) {
+    if (EarthQuakes.mEarthQuakeList.size() < 1) {
+      final String url = "http://www.earthquakescanada.nrcan.gc.ca/api/v2/locations/latest/30d.json";
+      FetchQuakeData fetchedData = new FetchQuakeData(this, url);
+    }
+  }
+
+  public void fetchData1Year(View v) {
+    if (EarthQuakes.mEarthQuakeList.size() < 1) {
+      final String url = "http://www.earthquakescanada.nrcan.gc.ca/api/v2/locations/latest/365d.json";
+      FetchQuakeData fetchedData = new FetchQuakeData(this, url);
     }
   }
 
