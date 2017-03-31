@@ -14,10 +14,10 @@ public class EarthQuake {
   int localTimeUTCOffset;
   int localTimeDSTOffset;
   double depthInKM;
-  Float magnitude;
+  Double magnitude;
   String locationDescription;
 
-  public EarthQuake(LatLng location, Date date, int localTimeUTCOffset, int localTimeDSTOffset, double depthInKM, Float magnitude, String locationDescription) {
+  public EarthQuake(LatLng location, Date date, int localTimeUTCOffset, int localTimeDSTOffset, double depthInKM, Double magnitude, String locationDescription) {
     this.location = location;
     this.date = date;
     this.localTimeUTCOffset = localTimeUTCOffset;
@@ -77,11 +77,11 @@ public class EarthQuake {
     this.depthInKM = depthInKM;
   }
 
-  public Float getMagnitude() {
+  public Double getMagnitude() {
     return magnitude;
   }
 
-  public void setMagnitude(Float magnitude) {
+  public void setMagnitude(Double magnitude) {
     this.magnitude = magnitude;
   }
 

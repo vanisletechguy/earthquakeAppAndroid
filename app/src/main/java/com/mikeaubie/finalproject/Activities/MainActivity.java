@@ -13,6 +13,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.mikeaubie.finalproject.Eventbus.Events;
+import com.mikeaubie.finalproject.Eventbus.GlobalBus;
 import com.mikeaubie.finalproject.Fragments.NavigationDrawerFragment;
 import com.mikeaubie.finalproject.Fragments.QuakeListFragment;
 import com.mikeaubie.finalproject.Fragments.QuakeMapFragment;
@@ -24,6 +26,8 @@ import com.mikeaubie.finalproject.R;
 
 import net.danlew.android.joda.JodaTimeAndroid;
 
+import org.greenrobot.eventbus.EventBus;
+
 public class MainActivity extends AppCompatActivity {
   public NavigationDrawerFragment drawerFragment = null;
   private Toolbar toolbar;
@@ -34,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     JodaTimeAndroid.init(this);
     setContentView(R.layout.activity_main);
+    //EventBus.getDefault().register(this);
 
     if (savedInstanceState == null) {
       WelcomeFragment welcomeFragment = new WelcomeFragment();
@@ -72,6 +77,11 @@ public class MainActivity extends AppCompatActivity {
           EarthQuakes.dateFilterValue = dayFilterInput;
           EarthQuakes.dateFilter = true;
           item.setChecked(true);
+
+          Events.NewMarkerMessage newMarkerMessage =
+                  new Events.NewMarkerMessage();
+          GlobalBus.getBus().postSticky(newMarkerMessage);
+
         }catch (Exception ex) {
           Toast.makeText(getApplicationContext(), "Not a valid number of days - Try 15", Toast.LENGTH_LONG).show();
         }
@@ -110,10 +120,14 @@ public class MainActivity extends AppCompatActivity {
 
 
         try{
-          float magFilterInput = Float.parseFloat(alertResponse);
+          Double magFilterInput = Double.parseDouble(alertResponse);
           EarthQuakes.magFilterValue = magFilterInput;
           EarthQuakes.magnitudeFilter = true;
           item.setChecked(true);
+
+          Events.NewMarkerMessage newMarkerMessage =
+                  new Events.NewMarkerMessage();
+          GlobalBus.getBus().postSticky(newMarkerMessage);
         } catch (Exception ex) {
           Toast.makeText(getApplicationContext(), "Not a valid value - Try 4.0", Toast.LENGTH_LONG).show();
         }
@@ -154,6 +168,10 @@ public class MainActivity extends AppCompatActivity {
           EarthQuakes.proximityFilterValue = proxFilterInput;
           EarthQuakes.magnitudeFilter = true;
           item.setChecked(true);
+
+          Events.NewMarkerMessage newMarkerMessage =
+                  new Events.NewMarkerMessage();
+          GlobalBus.getBus().postSticky(newMarkerMessage);
         } catch (Exception ex) {
           Toast.makeText(getApplicationContext(), "Not a valid value - Try 50", Toast.LENGTH_LONG).show();
         }

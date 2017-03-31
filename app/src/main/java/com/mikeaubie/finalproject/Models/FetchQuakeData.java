@@ -63,7 +63,7 @@ public class FetchQuakeData {
                         int localTimeUTCOffset = Integer.parseInt(currentChild.get("local_time_utc_offset").toString());
                         int localTimeDSTOffset = Integer.parseInt(currentChild.get("local_time_dst_offset").toString());
                         double depthInKM = Double.parseDouble(currentChild.get("depth").toString());
-                        Float magnitude = Float.parseFloat(currentChild.get("magnitude").toString());
+                        Double magnitude = Double.parseDouble(currentChild.get("magnitude").toString());
                         JSONObject locationObject = (JSONObject) currentChild.get("location");
                         String locationDescription = locationObject.get("en").toString();
                         EarthQuake newQuake = new EarthQuake(newCoord, date, localTimeUTCOffset,
