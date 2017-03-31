@@ -107,9 +107,9 @@ public class QuakeMapFragment extends Fragment {
     //Toast.makeText(getContext().getApplicationContext(), "event recieved", Toast.LENGTH_LONG).show();
     gMap.clear();
 
-    //ArrayList<EarthQuake> quakeList = EarthQuakes.filteredQuakes();
-    ArrayList<EarthQuake> quakeList = EarthQuakes.mEarthQuakeList;
-    
+    ArrayList<EarthQuake> quakeList = EarthQuakes.filteredQuakes();
+    //ArrayList<EarthQuake> quakeList = EarthQuakes.mEarthQuakeList;
+
     for(int index = 0; index < quakeList.size(); index++) {
       Toast.makeText(getContext().getApplicationContext(), quakeList.get(index).getMagnitude().toString(), Toast.LENGTH_LONG).show();
       LatLng newMarker = quakeList.get(index).getLocation();

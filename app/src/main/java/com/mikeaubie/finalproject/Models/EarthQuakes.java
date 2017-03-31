@@ -1,5 +1,8 @@
 package com.mikeaubie.finalproject.Models;
 
+import org.joda.time.DateTime;
+import org.joda.time.Days;
+
 import java.util.ArrayList;
 
 /**
@@ -17,48 +20,34 @@ public class EarthQuakes {
   public static ArrayList<EarthQuake> mEarthQuakeList = new ArrayList<>();
 
   public static ArrayList<EarthQuake> filteredQuakes() {
-    ArrayList<EarthQuake> filteredList = new ArrayList<EarthQuake>(mEarthQuakeList.size());
-//    for (EarthQuake quake : mEarthQuakeList)
-//      filteredList.add(new EarthQuake(quake));
-
+    ArrayList<EarthQuake> magfilteredList = new ArrayList<>();
+    ArrayList<EarthQuake> datefilteredList = new ArrayList<>();
 
     if (magnitudeFilter) {
       for (EarthQuake quake : mEarthQuakeList) {
         if (quake.getMagnitude() - magFilterValue >= 0) {
-          filteredList.add(quake);
+          magfilteredList.add(quake);
         }
       }
     }
 
+    if (dateFilter) {
+      for (EarthQuake quake : magfilteredList ) {
+        DateTime current = new DateTime();
+        DateTime quakeTime = new DateTime(quake.getDate());
+        Days daysBetween = Days.daysBetween(current.toInstant(), quakeTime.toInstant());
+        int howMany = daysBetween.getDays();
+        if (howMany < dateFilterValue) {
+          datefilteredList.add(quake);
+        }
+      }
+    } else {
+      for (EarthQuake quake : magfilteredList) {
+        datefilteredList.add(quake);
+      }
+    }
 
-//    if(magnitudeFilter) {
-//      for(EarthQuake quake : mEarthQuakeList) {
-//        if(quake.getMagnitude() - magFilterValue >= 0) {
-//          if(dateFilter) {
-//            if(proximityFilter) {
-//
-//            }
-//          }
-//          filteredList.add(quake);
-//        }
-//      }
-//    }
-
-
-//    if(dateFilter) {
-//      for(int x=0; x < filteredList.size(); x++) {
-//        GregorianCalendar cal = new GregorianCalendar();
-//        DateTime today = new DateTime();
-//        DateTime quakeTime = new DateTime(filteredList.get(x).getDate());
-//        int daysBetween = Days.daysBetween(today, quakeTime).getDays();
-//
-//        if (daysBetween > dateFilterValue) {
-//          filteredList.remove(x);
-//        }
-//      }
-//    }
-
-    return filteredList;
+    return datefilteredList;
   }
 
 
@@ -66,3 +55,38 @@ public class EarthQuakes {
   }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
