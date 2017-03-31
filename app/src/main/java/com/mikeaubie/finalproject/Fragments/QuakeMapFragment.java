@@ -15,8 +15,11 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.mikeaubie.finalproject.Models.EarthQuake;
 import com.mikeaubie.finalproject.Models.EarthQuakes;
 import com.mikeaubie.finalproject.R;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -61,12 +64,13 @@ public class QuakeMapFragment extends Fragment {
           }
         });
 
-        for (int index = 0; index < EarthQuakes.mEarthQuakeList.size(); index++) {
-          LatLng newMarker = EarthQuakes.mEarthQuakeList.get(index).getLocation();
+        ArrayList<EarthQuake> quakeList = EarthQuakes.filteredQuakes();
+        for(int index = 0; index < quakeList.size(); index++) {
+          LatLng newMarker = quakeList.get(index).getLocation();
           gMap.addMarker(new MarkerOptions()
                   .position(newMarker)
-                  .title(EarthQuakes.mEarthQuakeList.get(index).getLocationDescription())
-                  .snippet(EarthQuakes.mEarthQuakeList.get(index).getMagnitude().toString()));
+                  .title(quakeList.get(index).getLocationDescription())
+                  .snippet(quakeList.get(index).getMagnitude().toString()));
         }
 
         LatLng northIslandCollege = new LatLng(49.708652, -124.971147);

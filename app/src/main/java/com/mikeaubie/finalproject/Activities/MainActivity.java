@@ -17,9 +17,12 @@ import com.mikeaubie.finalproject.Fragments.NavigationDrawerFragment;
 import com.mikeaubie.finalproject.Fragments.QuakeListFragment;
 import com.mikeaubie.finalproject.Fragments.QuakeMapFragment;
 import com.mikeaubie.finalproject.Fragments.WelcomeFragment;
+import com.mikeaubie.finalproject.Models.EarthQuake;
 import com.mikeaubie.finalproject.Models.EarthQuakes;
 import com.mikeaubie.finalproject.Models.FetchQuakeData;
 import com.mikeaubie.finalproject.R;
+
+import net.danlew.android.joda.JodaTimeAndroid;
 
 public class MainActivity extends AppCompatActivity {
   public NavigationDrawerFragment drawerFragment = null;
@@ -29,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    JodaTimeAndroid.init(this);
     setContentView(R.layout.activity_main);
 
     if (savedInstanceState == null) {
@@ -62,7 +66,16 @@ public class MainActivity extends AppCompatActivity {
       public void onClick(DialogInterface dialog, int which) {
         alertResponse = input.getText().toString();
         Toast.makeText(getApplicationContext(), alertResponse, Toast.LENGTH_LONG).show();
-        item.setChecked(true);
+
+        try{
+          int dayFilterInput = Integer.parseInt(alertResponse);
+          EarthQuakes.dateFilterValue = dayFilterInput;
+          EarthQuakes.dateFilter = true;
+          item.setChecked(true);
+        }catch (Exception ex) {
+          Toast.makeText(getApplicationContext(), "Not a valid number of days - Try 15", Toast.LENGTH_LONG).show();
+        }
+
       }
     });
     builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -70,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
       public void onClick(DialogInterface dialog, int which) {
         dialog.cancel();
         item.setChecked(false);
+        EarthQuakes.dateFilter = false;
       }
     });
 
@@ -93,7 +107,17 @@ public class MainActivity extends AppCompatActivity {
       public void onClick(DialogInterface dialog, int which) {
         alertResponse = input.getText().toString();
         Toast.makeText(getApplicationContext(), alertResponse, Toast.LENGTH_LONG).show();
-        item.setChecked(true);
+
+
+        try{
+          float magFilterInput = Float.parseFloat(alertResponse);
+          EarthQuakes.magFilterValue = magFilterInput;
+          EarthQuakes.magnitudeFilter = true;
+          item.setChecked(true);
+        } catch (Exception ex) {
+          Toast.makeText(getApplicationContext(), "Not a valid value - Try 4.0", Toast.LENGTH_LONG).show();
+        }
+
       }
     });
     builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -124,7 +148,15 @@ public class MainActivity extends AppCompatActivity {
       public void onClick(DialogInterface dialog, int which) {
         alertResponse = input.getText().toString();
         Toast.makeText(getApplicationContext(), alertResponse, Toast.LENGTH_LONG).show();
-        item.setChecked(true);
+
+        try{
+          int proxFilterInput = Integer.parseInt(alertResponse);
+          EarthQuakes.proximityFilterValue = proxFilterInput;
+          EarthQuakes.magnitudeFilter = true;
+          item.setChecked(true);
+        } catch (Exception ex) {
+          Toast.makeText(getApplicationContext(), "Not a valid value - Try 50", Toast.LENGTH_LONG).show();
+        }
       }
     });
     builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -136,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
     });
 
     builder.show();
-    
+
     return true;
   }
 

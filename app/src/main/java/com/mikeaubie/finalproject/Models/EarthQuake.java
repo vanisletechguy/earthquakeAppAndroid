@@ -27,6 +27,16 @@ public class EarthQuake {
     this.locationDescription = locationDescription;
   }
 
+  public EarthQuake(EarthQuake earthQuake) {
+    this.location = earthQuake.location;
+    this.date = earthQuake.date;
+    this.localTimeUTCOffset = earthQuake.localTimeUTCOffset;
+    this.localTimeDSTOffset = earthQuake.localTimeDSTOffset;
+    this.depthInKM = earthQuake.depthInKM;
+    this.magnitude = earthQuake.magnitude;
+    this.locationDescription = earthQuake.locationDescription;
+
+  }
   public LatLng getLocation() {
     return location;
   }
