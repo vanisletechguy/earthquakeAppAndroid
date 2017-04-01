@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -23,6 +24,7 @@ import com.mikeaubie.finalproject.R;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -67,6 +69,10 @@ public class QuakeMapFragment extends Fragment {
           public View getInfoContents(Marker marker) {
             View view = getActivity().getLayoutInflater().inflate(
                     R.layout.quake_info_marker, null);
+            TextView magText = (TextView)view.findViewById(R.id.infoMagnitude);
+            TextView dateText = (TextView)view.findViewById(R.id.infoDate);
+
+            //magText.setText(marker.);
             return view;
           }
         });
@@ -112,11 +118,27 @@ public class QuakeMapFragment extends Fragment {
 
     for(int index = 0; index < quakeList.size(); index++) {
       Toast.makeText(getContext().getApplicationContext(), quakeList.get(index).getMagnitude().toString(), Toast.LENGTH_LONG).show();
-      LatLng newMarker = quakeList.get(index).getLocation();
-      gMap.addMarker(new MarkerOptions()
-              .position(newMarker)
+      LatLng latlngNewMarker = quakeList.get(index).getLocation();
+
+
+      MarkerOptions options = new MarkerOptions()
+              .position(latlngNewMarker)
               .title(quakeList.get(index).getLocationDescription())
-              .snippet(quakeList.get(index).getMagnitude().toString()));
+              .snippet(quakeList.get(index).getMagnitude().toString());
+      //Marker newMarker = gMap.addMarker(options);
+      //newMarker.setSnippet("heyeeye");
+
+//      TextView infoTitle = (TextView) getView().findViewById(R.id.infoDate);
+//      TextView infoDate = (TextView) getView().findViewById(R.id.infoMagnitude);
+//
+//      infoTitle.setText(quakeList.get(index).getMagnitude().toString());
+//      infoDate.setText(quakeList.get(index).getDate().toString());
+
+
+      gMap.addMarker(new MarkerOptions()
+              .position(latlngNewMarker)
+              .title(quakeList.get(index).getLocationDescription())
+              .snippet(quakeList.get(index).getMagnitude().toString())).showInfoWindow();
     }
 
     LatLng northIslandCollege = new LatLng(49.708652, -124.971147);

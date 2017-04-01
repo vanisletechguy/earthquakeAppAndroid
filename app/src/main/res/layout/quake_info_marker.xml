@@ -16,11 +16,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="DATE: 01/01/2017"
+        android:id="@+id/infoDate"
         />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Magnitude 3.7 "/>
+        android:text="Magnitude 3.7 "
+        android:id="@+id/infoMagnitude"
+        />
 </LinearLayout>
 </LinearLayout>
