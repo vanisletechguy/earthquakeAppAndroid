@@ -60,22 +60,22 @@ public class QuakeMapFragment extends Fragment {
         gMap = mMap;
 
 
-        gMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
-          @Override
-          public View getInfoWindow(Marker marker) {
-            return null;
-          }
-          @Override
-          public View getInfoContents(Marker marker) {
-            View view = getActivity().getLayoutInflater().inflate(
-                    R.layout.quake_info_marker, null);
-            TextView magText = (TextView)view.findViewById(R.id.infoMagnitude);
-            TextView dateText = (TextView)view.findViewById(R.id.infoDate);
-
-            //magText.setText(marker.);
-            return view;
-          }
-        });
+//        gMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+//          @Override
+//          public View getInfoWindow(Marker marker) {
+//            return null;
+//          }
+//          @Override
+//          public View getInfoContents(Marker marker) {
+//            View view = getActivity().getLayoutInflater().inflate(
+//                    R.layout.quake_info_marker, null);
+//            TextView magText = (TextView)view.findViewById(R.id.infoMagnitude);
+//            TextView dateText = (TextView)view.findViewById(R.id.infoDate);
+//
+//            //magText.setText(marker.);
+//            return view;
+//          }
+//        });
 
         ArrayList<EarthQuake> quakeList = EarthQuakes.filteredQuakes();
         for(int index = 0; index < quakeList.size(); index++) {
