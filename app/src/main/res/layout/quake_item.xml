@@ -21,8 +21,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:gravity="left"
+            android:orientation="horizontal"
 
             >
 
@@ -38,19 +38,40 @@
                 app:bootstrapHeading="h4"
                 />
 
-            <TextView
-                android:id="@+id/tvCoords"
-                android:layout_width="150dp"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="7dp"
-                android:text=" GPS: 46.776, 49.765"
-                android:textColor="#616161"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:bootstrapBrand="primary"
-                app:bootstrapHeading="h4"
-                app:roundedCorners="false"
-                />
+                android:orientation="vertical"
+                >
+                <TextView
+                    android:id="@+id/tvMagDesc"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="7dp"
+                    android:text="Magnitude 3.7"
+                    android:textColor="#616161"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:bootstrapBrand="primary"
+                    app:bootstrapHeading="h4"
+                    app:roundedCorners="false"
+                    />
+                <TextView
+                    android:id="@+id/tvDateDesc"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="7dp"
+                    android:text="Magnitude 3.7"
+                    android:textColor="#616161"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:bootstrapBrand="primary"
+                    app:bootstrapHeading="h4"
+                    app:roundedCorners="false"
+                    />
+            </LinearLayout>
+
+
         </LinearLayout>
 
 

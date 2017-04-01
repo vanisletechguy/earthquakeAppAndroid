@@ -65,16 +65,16 @@ public class QuakeAdapter extends
     public MyViewHolder(View itemView) {
       super(itemView);
       description = (TextView) itemView.findViewById(R.id.tvDescription);
-      location = (TextView) itemView.findViewById(R.id.tvCoords);
-      magnitude = (TextView) itemView.findViewById(R.id.tvMagnitude);
-      date = (TextView) itemView.findViewById(R.id.tvDate);
+      //location = (TextView) itemView.findViewById(R.id.tvCoords);
+      magnitude = (TextView) itemView.findViewById(R.id.tvMagDesc);
+      date = (TextView) itemView.findViewById(R.id.tvDateDesc);
     }
 
     public void setData(EarthQuake currentObj, int position) {
 
-      this.description.setText("Date: " + currentObj.getDate().toString());
-      this.location.setText(currentObj.getLocation().toString());
-      this.magnitude.setText("Date: " + currentObj.getDate().toString());
+      this.description.setText(currentObj.getLocationDescription());
+      //this.location.setText(currentObj.getLocation().toString());
+      this.magnitude.setText("Magnitude: " + currentObj.getMagnitude().toString());
       this.date.setText(currentObj.getDate().toString());
       this.current = currentObj;
     }
