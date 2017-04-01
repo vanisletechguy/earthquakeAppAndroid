@@ -1,5 +1,8 @@
 package com.mikeaubie.finalproject.Fragments;
 
+import android.content.Context;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -31,16 +36,19 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class QuakeMapFragment extends Fragment {
+public class QuakeMapFragment extends Fragment implements LocationListener {
 
   private static final String ARG_PARAM1 = "param1";
   private static final String ARG_PARAM2 = "param2";
   MapView gMapView;
   GoogleMap gMap = null;
+  LocationManager locationManager = (LocationManager) getActivity()
+          .getSystemService(Context.LOCATION_SERVICE);
 
   public QuakeMapFragment() {
     // Required empty public constructor
   }
+
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
                            Bundle savedInstanceState) {
@@ -59,26 +67,8 @@ public class QuakeMapFragment extends Fragment {
       public void onMapReady(GoogleMap mMap) {
         gMap = mMap;
 
-
-//        gMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
-//          @Override
-//          public View getInfoWindow(Marker marker) {
-//            return null;
-//          }
-//          @Override
-//          public View getInfoContents(Marker marker) {
-//            View view = getActivity().getLayoutInflater().inflate(
-//                    R.layout.quake_info_marker, null);
-//            TextView magText = (TextView)view.findViewById(R.id.infoMagnitude);
-//            TextView dateText = (TextView)view.findViewById(R.id.infoDate);
-//
-//            //magText.setText(marker.);
-//            return view;
-//          }
-//        });
-
         ArrayList<EarthQuake> quakeList = EarthQuakes.filteredQuakes();
-        for(int index = 0; index < quakeList.size(); index++) {
+        for (int index = 0; index < quakeList.size(); index++) {
           LatLng newMarker = quakeList.get(index).getLocation();
           gMap.addMarker(new MarkerOptions()
                   .position(newMarker)
@@ -87,9 +77,11 @@ public class QuakeMapFragment extends Fragment {
         }
 
         LatLng northIslandCollege = new LatLng(49.708652, -124.971147);
-        CameraPosition cameraPosition = new CameraPosition.Builder().target(northIslandCollege).zoom(3).build();
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(northIslandCollege).zoom(3).build();
         gMap.animateCamera(CameraUpdateFactory
                 .newCameraPosition(cameraPosition));
+
       }
     });
     return rootView;
@@ -116,7 +108,7 @@ public class QuakeMapFragment extends Fragment {
     ArrayList<EarthQuake> quakeList = EarthQuakes.filteredQuakes();
     //ArrayList<EarthQuake> quakeList = EarthQuakes.mEarthQuakeList;
 
-    for(int index = 0; index < quakeList.size(); index++) {
+    for (int index = 0; index < quakeList.size(); index++) {
       Toast.makeText(getContext().getApplicationContext(), quakeList.get(index).getMagnitude().toString(), Toast.LENGTH_LONG).show();
       LatLng latlngNewMarker = quakeList.get(index).getLocation();
 
@@ -125,15 +117,6 @@ public class QuakeMapFragment extends Fragment {
               .position(latlngNewMarker)
               .title(quakeList.get(index).getLocationDescription())
               .snippet(quakeList.get(index).getMagnitude().toString());
-      //Marker newMarker = gMap.addMarker(options);
-      //newMarker.setSnippet("heyeeye");
-
-//      TextView infoTitle = (TextView) getView().findViewById(R.id.infoDate);
-//      TextView infoDate = (TextView) getView().findViewById(R.id.infoMagnitude);
-//
-//      infoTitle.setText(quakeList.get(index).getMagnitude().toString());
-//      infoDate.setText(quakeList.get(index).getDate().toString());
-
 
       gMap.addMarker(new MarkerOptions()
               .position(latlngNewMarker)
@@ -145,5 +128,10 @@ public class QuakeMapFragment extends Fragment {
     CameraPosition cameraPosition = new CameraPosition.Builder().target(northIslandCollege).zoom(3).build();
     gMap.animateCamera(CameraUpdateFactory
             .newCameraPosition(cameraPosition));
+  }
+
+  @Override
+  public void onLocationChanged(Location location) {
+    EarthQuakes.lastKnownLocation = new LatLng(location.getLatitude(), location.getLongitude());
   }
 }

@@ -5,7 +5,7 @@ import com.google.android.gms.maps.model.LatLng;
 import java.util.Date;
 
 /**
- * Created by Family on 3/24/2017.
+ * Created by Michael Aubie on 3/24/2017.
  */
 
 public class EarthQuake {
@@ -17,7 +17,9 @@ public class EarthQuake {
   Double magnitude;
   String locationDescription;
 
-  public EarthQuake(LatLng location, Date date, int localTimeUTCOffset, int localTimeDSTOffset, double depthInKM, Double magnitude, String locationDescription) {
+  public EarthQuake(LatLng location, Date date, int localTimeUTCOffset,
+                    int localTimeDSTOffset, double depthInKM, Double magnitude,
+                    String locationDescription) {
     this.location = location;
     this.date = date;
     this.localTimeUTCOffset = localTimeUTCOffset;

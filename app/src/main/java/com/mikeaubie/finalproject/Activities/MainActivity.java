@@ -61,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
     builder.setTitle("Within how many days?");
   // Set up the input
     final EditText input = new EditText(this);
-  // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
     input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_CLASS_NUMBER);
     builder.setView(input);
 
@@ -70,7 +69,8 @@ public class MainActivity extends AppCompatActivity {
       @Override
       public void onClick(DialogInterface dialog, int which) {
         alertResponse = input.getText().toString();
-        Toast.makeText(getApplicationContext(), alertResponse, Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), alertResponse,
+                Toast.LENGTH_LONG).show();
 
         try{
           int dayFilterInput = Integer.parseInt(alertResponse);
@@ -83,9 +83,10 @@ public class MainActivity extends AppCompatActivity {
           GlobalBus.getBus().postSticky(newMarkerMessage);
 
         }catch (Exception ex) {
-          Toast.makeText(getApplicationContext(), "Not a valid number of days - Try 15", Toast.LENGTH_LONG).show();
+          Toast.makeText(getApplicationContext(),
+                  "Not a valid number of days - Try 15",
+                  Toast.LENGTH_LONG).show();
         }
-
       }
     });
     builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -107,31 +108,26 @@ public class MainActivity extends AppCompatActivity {
     builder.setTitle("Show only Magnitudes Above this value:");
   // Set up the input
     final EditText input = new EditText(this);
-  // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-    input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+    input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_CLASS_NUMBER);
     builder.setView(input);
-
-  // Set up the buttons
     builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
       @Override
       public void onClick(DialogInterface dialog, int which) {
         alertResponse = input.getText().toString();
-        Toast.makeText(getApplicationContext(), alertResponse, Toast.LENGTH_LONG).show();
-
-
+        Toast.makeText(getApplicationContext(),
+                alertResponse, Toast.LENGTH_LONG).show();
         try{
           Double magFilterInput = Double.parseDouble(alertResponse);
           EarthQuakes.magFilterValue = magFilterInput;
           EarthQuakes.magnitudeFilter = true;
           item.setChecked(true);
-
           Events.NewMarkerMessage newMarkerMessage =
                   new Events.NewMarkerMessage();
           GlobalBus.getBus().postSticky(newMarkerMessage);
         } catch (Exception ex) {
-          Toast.makeText(getApplicationContext(), "Not a valid value - Try 4.0", Toast.LENGTH_LONG).show();
+          Toast.makeText(getApplicationContext(),
+                  "Not a valid value - Try 4.0", Toast.LENGTH_LONG).show();
         }
-
       }
     });
     builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -143,9 +139,7 @@ public class MainActivity extends AppCompatActivity {
         EarthQuakes.magFilterValue = 0;
       }
     });
-
     builder.show();
-
     return true;
   }
 
@@ -154,8 +148,8 @@ public class MainActivity extends AppCompatActivity {
     builder.setTitle("Within how many km?");
   // Set up the input
     final EditText input = new EditText(this);
-  // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-    input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+    input.setInputType(
+            InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
     builder.setView(input);
 
   // Set up the buttons
@@ -163,8 +157,6 @@ public class MainActivity extends AppCompatActivity {
       @Override
       public void onClick(DialogInterface dialog, int which) {
         alertResponse = input.getText().toString();
-        //Toast.makeText(getApplicationContext(), alertResponse, Toast.LENGTH_LONG).show();
-
         try{
           int proxFilterInput = Integer.parseInt(alertResponse);
           EarthQuakes.proximityFilterValue = proxFilterInput;
@@ -175,7 +167,8 @@ public class MainActivity extends AppCompatActivity {
                   new Events.NewMarkerMessage();
           GlobalBus.getBus().postSticky(newMarkerMessage);
         } catch (Exception ex) {
-          Toast.makeText(getApplicationContext(), "Not a valid value - Try 50", Toast.LENGTH_LONG).show();
+          Toast.makeText(getApplicationContext(),
+                  "Not a valid value - Try 50", Toast.LENGTH_LONG).show();
         }
       }
     });
@@ -186,9 +179,7 @@ public class MainActivity extends AppCompatActivity {
         item.setChecked(false);
       }
     });
-
     builder.show();
-
     return true;
   }
 
