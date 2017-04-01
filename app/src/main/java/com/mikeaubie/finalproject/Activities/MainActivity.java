@@ -139,6 +139,8 @@ public class MainActivity extends AppCompatActivity {
       public void onClick(DialogInterface dialog, int which) {
         dialog.cancel();
         item.setChecked(false);
+        EarthQuakes.magnitudeFilter = true;
+        EarthQuakes.magFilterValue = 0;
       }
     });
 
@@ -161,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
       @Override
       public void onClick(DialogInterface dialog, int which) {
         alertResponse = input.getText().toString();
-        Toast.makeText(getApplicationContext(), alertResponse, Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), alertResponse, Toast.LENGTH_LONG).show();
 
         try{
           int proxFilterInput = Integer.parseInt(alertResponse);

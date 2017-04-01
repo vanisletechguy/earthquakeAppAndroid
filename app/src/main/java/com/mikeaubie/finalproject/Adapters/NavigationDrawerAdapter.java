@@ -55,8 +55,8 @@ public class NavigationDrawerAdapter extends
     holder.itemView.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        Toast.makeText(context, holder.title.getText().toString(),
-                Toast.LENGTH_SHORT).show();
+//        Toast.makeText(context, holder.title.getText().toString(),
+//                Toast.LENGTH_SHORT).show();
         MainActivity mainActivity = (MainActivity) context;
         FragmentManager fragmentManager =
                 mainActivity.getSupportFragmentManager();

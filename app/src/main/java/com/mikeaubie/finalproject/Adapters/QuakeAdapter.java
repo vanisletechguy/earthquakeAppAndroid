@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.mikeaubie.finalproject.Models.EarthQuake;
 import com.mikeaubie.finalproject.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -47,6 +48,12 @@ public class QuakeAdapter extends
     holder.setData(currentQuake, position);
   }
 
+  public void swap(ArrayList<EarthQuake> newData){
+    mData.clear();
+    mData.addAll(newData);
+    //notifyDataSetChanged();
+  }
+
   class MyViewHolder extends RecyclerView.ViewHolder
           implements View.OnClickListener {
 
@@ -71,6 +78,9 @@ public class QuakeAdapter extends
       this.date.setText(currentObj.getDate().toString());
       this.current = currentObj;
     }
+
+
+
 
     public void setListeners() {
     }
