@@ -101,12 +101,9 @@ public class QuakeMapFragment extends Fragment implements LocationListener {
 
   @Subscribe
   public void NewMarkerMessage(Events.NewMarkerMessage newMarkerMessage) {
-    //update map
-    //Toast.makeText(getContext().getApplicationContext(), "event recieved", Toast.LENGTH_LONG).show();
     gMap.clear();
 
     ArrayList<EarthQuake> quakeList = EarthQuakes.filteredQuakes();
-    //ArrayList<EarthQuake> quakeList = EarthQuakes.mEarthQuakeList;
 
     for (int index = 0; index < quakeList.size(); index++) {
       Toast.makeText(getContext().getApplicationContext(), quakeList.get(index).getMagnitude().toString(), Toast.LENGTH_LONG).show();

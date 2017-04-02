@@ -62,7 +62,6 @@ public class QuakeService extends IntentService {
       final String url = "http://www.earthquakescanada.nrcan.gc.ca/api/v2/locations/latest/7d.json";
       new FetchQuakeData(this, url);
 
-      /////////////////////CHECK FOR NEW EARTHQUAKE AND IF IT FITS THE ALERT DESCRIPTION
       DateTime newQuake = new DateTime(EarthQuakes.mEarthQuakeList.get(0).getDate()); ///////////change to get filtered alert quake
 
       if(lastQuake.compareTo(newQuake) != 0) {

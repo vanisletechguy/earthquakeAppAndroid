@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mikeaubie.finalproject.Fragments.NotificationsFragment;
 import com.mikeaubie.finalproject.Fragments.QuakeListFragment;
 import com.mikeaubie.finalproject.Fragments.QuakeMapFragment;
 import com.mikeaubie.finalproject.Fragments.WelcomeFragment;
@@ -77,7 +78,9 @@ public class NavigationDrawerAdapter extends
           ft.replace(R.id.flContainer, quakeMapFragment);
         } else if (holder.title.getText().toString() ==
                 "Notifications Settings") {
-          ((MainActivity) context).startQuakeService();
+          //((MainActivity) context).startQuakeService();
+          NotificationsFragment notificationsFragment = new NotificationsFragment();
+          ft.replace(R.id.flContainer, notificationsFragment);
         }
 
 
