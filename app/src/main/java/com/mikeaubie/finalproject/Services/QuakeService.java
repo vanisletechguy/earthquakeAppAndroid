@@ -30,8 +30,13 @@ import java.util.TimerTask;
  */
 
 public class QuakeService extends IntentService {
-  int refreshRate = 300000; // 5mins
+  //int refreshRate = 300000; // 5mins
   DateTime lastQuake;
+  public static double magAlertFilter = 0.0;
+  public static int proximityAlertFilter = 0;
+  public static int refreshAlertFilter = 0;
+
+
   public QuakeService() {
     super("HelloIntentService");
     lastQuake = new DateTime();
@@ -58,15 +63,20 @@ public class QuakeService extends IntentService {
 
   public void serviceLoop() {
     try {
-      Thread.sleep(refreshRate);
+
       final String url = "http://www.earthquakescanada.nrcan.gc.ca/api/v2/locations/latest/7d.json";
       new FetchQuakeData(this, url);
+      Thread.sleep(refreshAlertFilter * 1000);
 
       DateTime newQuake = new DateTime(EarthQuakes.mEarthQuakeList.get(0).getDate()); ///////////change to get filtered alert quake
 
       if(lastQuake.compareTo(newQuake) != 0) {
-        postNotification();
-        lastQuake = newQuake;
+        if(EarthQuakes.mEarthQuakeList.get(0).getMagnitude() >= magAlertFilter) {
+          if(EarthQuakes.getDistanceBetween(EarthQuakes.mEarthQuakeList.get(0).getLocation(), EarthQuakes.lastKnownLocation) <= proximityAlertFilter) {
+            postNotification();
+            lastQuake = newQuake;
+          }
+        }
       }
     } catch (InterruptedException e) {
       // Restore interrupt status.

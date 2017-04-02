@@ -46,26 +46,17 @@ public class NotificationsFragment extends Fragment {
     makeAlertButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-
         double mag = Double.parseDouble(magAlertSize.getText().toString());
         int prox = Integer.parseInt(proximityAlertSize.getText().toString());
         int refresh = Integer.parseInt(refreshRate.getText().toString());
-
         startQuakeService(mag, prox, refresh);
       }
     });
-
     return view;
   }
 
   public void startQuakeService(double magnitude, int proximity, int refresh) {
-
-
-  MainActivity mainActivity = (MainActivity)getActivity();
-  mainActivity.startQuakeService(); ////////////////////////////////pass variables
-
-
-
-
+    MainActivity mainActivity = (MainActivity) getActivity();
+    mainActivity.startQuakeService(magnitude, proximity, refresh);
   }
 }

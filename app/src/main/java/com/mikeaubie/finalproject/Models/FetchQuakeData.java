@@ -34,6 +34,7 @@ import org.json.*;
 
 public class FetchQuakeData {
   public FetchQuakeData(final Context context, final String url) {
+    EarthQuakes.mEarthQuakeList.clear();
 
     JSONObject newObject = new JSONObject();
     JsonObjectRequest jsonObjectRequest = new JsonObjectRequest

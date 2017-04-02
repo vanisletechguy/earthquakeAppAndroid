@@ -230,19 +230,16 @@ public class MainActivity extends AppCompatActivity {
     ft.commit();
   }
 
-  public void startQuakeService() {
-    //Toast.makeText(getApplicationContext(), "about to start service", Toast.LENGTH_SHORT).show();
+  public void startQuakeService(double magnitude, int proximity, int refresh) {
+    QuakeService.magAlertFilter = magnitude;
+    QuakeService.proximityAlertFilter = proximity;
+    QuakeService.refreshAlertFilter = refresh;
 
-    int repeatTime = 3;  //Repeat alarm time in seconds
     AlarmManager processTimer = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
     Intent intent = new Intent(this, QuakeService.class);
     PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0,  intent, 0);
-//Repeat alarm every second
     startService(intent);
-    processTimer.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(),repeatTime*1000, pendingIntent);
-
-
-
+    //processTimer.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(),refresh * 1000, pendingIntent);
   }
 }
 
