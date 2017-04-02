@@ -23,15 +23,12 @@ import com.mikeaubie.finalproject.Fragments.NavigationDrawerFragment;
 import com.mikeaubie.finalproject.Fragments.QuakeListFragment;
 import com.mikeaubie.finalproject.Fragments.QuakeMapFragment;
 import com.mikeaubie.finalproject.Fragments.WelcomeFragment;
-import com.mikeaubie.finalproject.Models.EarthQuake;
 import com.mikeaubie.finalproject.Models.EarthQuakes;
 import com.mikeaubie.finalproject.Models.FetchQuakeData;
-import com.mikeaubie.finalproject.QuakeService;
+import com.mikeaubie.finalproject.Services.QuakeService;
 import com.mikeaubie.finalproject.R;
 
 import net.danlew.android.joda.JodaTimeAndroid;
-
-import org.greenrobot.eventbus.EventBus;
 
 public class MainActivity extends AppCompatActivity {
   public NavigationDrawerFragment drawerFragment = null;
@@ -57,9 +54,8 @@ public class MainActivity extends AppCompatActivity {
 
   private void setUpToolbar() {
     toolbar = (Toolbar) findViewById(R.id.toolbar);
-    toolbar.setTitle("Assignment5");
+    toolbar.setTitle("Canadian Quake Monitor");
     toolbar.inflateMenu(R.menu.menu_list);
-
 
   }
 
@@ -235,7 +231,7 @@ public class MainActivity extends AppCompatActivity {
   }
 
   public void startQuakeService() {
-    Toast.makeText(getApplicationContext(), "about to start service", Toast.LENGTH_SHORT).show();
+    //Toast.makeText(getApplicationContext(), "about to start service", Toast.LENGTH_SHORT).show();
 
     int repeatTime = 3;  //Repeat alarm time in seconds
     AlarmManager processTimer = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
@@ -247,11 +243,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-
-
-    //Intent intent = new Intent(this, QuakeService.class);
-    //startService(intent);
   }
 }
 

@@ -42,8 +42,8 @@ public class QuakeMapFragment extends Fragment implements LocationListener {
   private static final String ARG_PARAM2 = "param2";
   MapView gMapView;
   GoogleMap gMap = null;
-  LocationManager locationManager = (LocationManager) getActivity()
-          .getSystemService(Context.LOCATION_SERVICE);
+//  LocationManager locationManager = (LocationManager) getActivity()
+//          .getSystemService(Context.LOCATION_SERVICE);
 
   public QuakeMapFragment() {
     // Required empty public constructor

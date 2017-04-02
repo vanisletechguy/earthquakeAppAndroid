@@ -28,7 +28,7 @@
 
         </activity>
         <service
-            android:name=".QuakeService"
+            android:name=".Services.QuakeService"
             android:exported="false">
         </service>
     </application>

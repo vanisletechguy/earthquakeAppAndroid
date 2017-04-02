@@ -1,9 +1,7 @@
 package com.mikeaubie.finalproject.Adapters;
 
-import android.app.Application;
 import android.content.Context;
 
-import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 
 import android.support.v4.app.FragmentTransaction;
@@ -13,12 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mikeaubie.finalproject.Fragments.QuakeListFragment;
 import com.mikeaubie.finalproject.Fragments.QuakeMapFragment;
 import com.mikeaubie.finalproject.Fragments.WelcomeFragment;
-import com.mikeaubie.finalproject.QuakeService;
 import com.mikeaubie.finalproject.R;
 import com.mikeaubie.finalproject.Activities.MainActivity;
 import com.mikeaubie.finalproject.Fragments.NavigationDrawerFragment;
