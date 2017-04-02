@@ -1,6 +1,10 @@
 package com.mikeaubie.finalproject.Activities;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
@@ -22,6 +26,7 @@ import com.mikeaubie.finalproject.Fragments.WelcomeFragment;
 import com.mikeaubie.finalproject.Models.EarthQuake;
 import com.mikeaubie.finalproject.Models.EarthQuakes;
 import com.mikeaubie.finalproject.Models.FetchQuakeData;
+import com.mikeaubie.finalproject.QuakeService;
 import com.mikeaubie.finalproject.R;
 
 import net.danlew.android.joda.JodaTimeAndroid;
@@ -54,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
     toolbar = (Toolbar) findViewById(R.id.toolbar);
     toolbar.setTitle("Assignment5");
     toolbar.inflateMenu(R.menu.menu_list);
+
+
   }
 
   public boolean filterByDate(final MenuItem item) {
@@ -226,4 +233,55 @@ public class MainActivity extends AppCompatActivity {
     ft.replace(R.id.flContainer, quakeMapFragment);
     ft.commit();
   }
+
+  public void startQuakeService() {
+    Toast.makeText(getApplicationContext(), "about to start service", Toast.LENGTH_SHORT).show();
+
+    int repeatTime = 3;  //Repeat alarm time in seconds
+    AlarmManager processTimer = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+    Intent intent = new Intent(this, QuakeService.class);
+    PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0,  intent, 0);
+//Repeat alarm every second
+    startService(intent);
+    processTimer.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(),repeatTime*1000, pendingIntent);
+
+
+
+
+
+
+    //Intent intent = new Intent(this, QuakeService.class);
+    //startService(intent);
+  }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

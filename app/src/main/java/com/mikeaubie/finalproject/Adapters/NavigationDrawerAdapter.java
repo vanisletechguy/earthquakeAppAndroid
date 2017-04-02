@@ -1,7 +1,9 @@
 package com.mikeaubie.finalproject.Adapters;
 
+import android.app.Application;
 import android.content.Context;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 
 import android.support.v4.app.FragmentTransaction;
@@ -16,6 +18,7 @@ import android.widget.Toast;
 import com.mikeaubie.finalproject.Fragments.QuakeListFragment;
 import com.mikeaubie.finalproject.Fragments.QuakeMapFragment;
 import com.mikeaubie.finalproject.Fragments.WelcomeFragment;
+import com.mikeaubie.finalproject.QuakeService;
 import com.mikeaubie.finalproject.R;
 import com.mikeaubie.finalproject.Activities.MainActivity;
 import com.mikeaubie.finalproject.Fragments.NavigationDrawerFragment;
@@ -76,7 +79,14 @@ public class NavigationDrawerAdapter extends
                 "EarthQuake Map View") {
           QuakeMapFragment quakeMapFragment = new QuakeMapFragment();
           ft.replace(R.id.flContainer, quakeMapFragment);
+        } else if (holder.title.getText().toString() ==
+                "Notifications Settings") {
+          ((MainActivity) context).startQuakeService();
         }
+
+
+
+
         ft.commit();
         NavigationDrawerFragment drawerFragment =
                 ((MainActivity) context).drawerFragment;
