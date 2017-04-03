@@ -23,6 +23,7 @@ import com.mikeaubie.finalproject.Fragments.NavigationDrawerFragment;
 import com.mikeaubie.finalproject.Fragments.QuakeListFragment;
 import com.mikeaubie.finalproject.Fragments.QuakeMapFragment;
 import com.mikeaubie.finalproject.Fragments.WelcomeFragment;
+import com.mikeaubie.finalproject.Models.EarthQuake;
 import com.mikeaubie.finalproject.Models.EarthQuakes;
 import com.mikeaubie.finalproject.Models.FetchQuakeData;
 import com.mikeaubie.finalproject.Services.QuakeService;
@@ -98,6 +99,9 @@ public class MainActivity extends AppCompatActivity {
         dialog.cancel();
         item.setChecked(false);
         EarthQuakes.dateFilter = false;
+        Events.NewMarkerMessage newMarkerMessage =
+                new Events.NewMarkerMessage();
+        GlobalBus.getBus().postSticky(newMarkerMessage);
       }
     });
 
@@ -138,8 +142,11 @@ public class MainActivity extends AppCompatActivity {
       public void onClick(DialogInterface dialog, int which) {
         dialog.cancel();
         item.setChecked(false);
-        EarthQuakes.magnitudeFilter = true;
+        EarthQuakes.magnitudeFilter = false;
         EarthQuakes.magFilterValue = 0;
+        Events.NewMarkerMessage newMarkerMessage =
+                new Events.NewMarkerMessage();
+        GlobalBus.getBus().postSticky(newMarkerMessage);
       }
     });
     builder.show();
@@ -163,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
         try{
           int proxFilterInput = Integer.parseInt(alertResponse);
           EarthQuakes.proximityFilterValue = proxFilterInput;
-          EarthQuakes.magnitudeFilter = true;
+          EarthQuakes.proximityFilter = true;
           item.setChecked(true);
 
           Events.NewMarkerMessage newMarkerMessage =
@@ -180,6 +187,11 @@ public class MainActivity extends AppCompatActivity {
       public void onClick(DialogInterface dialog, int which) {
         dialog.cancel();
         item.setChecked(false);
+        EarthQuakes.proximityFilter = false;
+        EarthQuakes.proximityFilterValue = 0;
+        Events.NewMarkerMessage newMarkerMessage =
+                new Events.NewMarkerMessage();
+        GlobalBus.getBus().postSticky(newMarkerMessage);
       }
     });
     builder.show();

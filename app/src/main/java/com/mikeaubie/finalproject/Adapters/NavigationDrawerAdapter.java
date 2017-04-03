@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mikeaubie.finalproject.Fragments.AboutFragment;
 import com.mikeaubie.finalproject.Fragments.NotificationsFragment;
 import com.mikeaubie.finalproject.Fragments.QuakeListFragment;
 import com.mikeaubie.finalproject.Fragments.QuakeMapFragment;
@@ -55,8 +56,6 @@ public class NavigationDrawerAdapter extends
     holder.itemView.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-//        Toast.makeText(context, holder.title.getText().toString(),
-//                Toast.LENGTH_SHORT).show();
         MainActivity mainActivity = (MainActivity) context;
         FragmentManager fragmentManager =
                 mainActivity.getSupportFragmentManager();
@@ -81,10 +80,11 @@ public class NavigationDrawerAdapter extends
           //((MainActivity) context).startQuakeService();
           NotificationsFragment notificationsFragment = new NotificationsFragment();
           ft.replace(R.id.flContainer, notificationsFragment);
+        } else if (holder.title.getText().toString() ==
+                "About Application") {
+          AboutFragment aboutFragment = new AboutFragment();
+          ft.replace(R.id.flContainer, aboutFragment);
         }
-
-
-
 
         ft.commit();
         NavigationDrawerFragment drawerFragment =

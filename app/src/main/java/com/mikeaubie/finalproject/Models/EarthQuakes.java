@@ -3,6 +3,7 @@ package com.mikeaubie.finalproject.Models;
 import android.widget.Toast;
 
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.model.IndoorBuilding;
 import com.google.android.gms.maps.model.LatLng;
 
 import org.joda.time.DateTime;
@@ -56,7 +57,7 @@ public class EarthQuakes {
         int distanceBetween = getDistanceBetween(lastKnownLocation,
                 magfilteredList.get(x).getLocation());
         if(distanceBetween > proximityFilterValue) {
-         // magfilteredList.remove(x--);
+         magfilteredList.remove(x--);
         }
       }
     }
@@ -72,7 +73,7 @@ public class EarthQuakes {
     double distance = haversine(currentLocation.latitude,
             currentLocation.longitude, quakeLocation.latitude,
             quakeLocation.longitude);
-    return 1;
+    return ((Double)distance).intValue();
   }
 
   public static double haversine(
