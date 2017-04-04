@@ -30,6 +30,7 @@ public class NotificationsFragment extends Fragment {
   EditText proximityAlertSize;
   EditText refreshRate;
   Button makeAlertButton;
+  Button stopAlertButton;
 
   public NotificationsFragment() {
     // Required empty public constructor
@@ -53,8 +54,14 @@ public class NotificationsFragment extends Fragment {
         int prox = Integer.parseInt(proximityAlertSize.getText().toString());
         int refresh = Integer.parseInt(refreshRate.getText().toString());
 
-        //Toast.makeText(EarthQuakes.context, "TESTIT", Toast.LENGTH_SHORT).show();
         startQuakeService(mag, prox, refresh);
+      }
+    });
+    stopAlertButton = (Button) view.findViewById(R.id.alertDeactivateBtn);
+    stopAlertButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        stopQuakeService();
       }
     });
     return view;
@@ -63,5 +70,10 @@ public class NotificationsFragment extends Fragment {
   public void startQuakeService(double magnitude, int proximity, int refresh) {
     MainActivity mainActivity = (MainActivity) getActivity();
     mainActivity.startQuakeService(magnitude, proximity, refresh);
+  }
+
+  public void stopQuakeService() {
+    MainActivity mainActivity = (MainActivity) getActivity();
+    mainActivity.stopQuakeService();
   }
 }

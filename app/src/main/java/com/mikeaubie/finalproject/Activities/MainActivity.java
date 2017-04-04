@@ -256,6 +256,14 @@ public class MainActivity extends AppCompatActivity {
     processTimer.setRepeating(AlarmManager.RTC_WAKEUP,
             System.currentTimeMillis(), 60000 * refresh, pendingIntent);
   }
+
+  public void stopQuakeService() {
+    AlarmManager processTimer = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+    Intent intent = new Intent(this, QuakeServiceReciever.class);
+    PendingIntent pendingIntent =
+            PendingIntent.getBroadcast(this, 0, intent, 0);
+    processTimer.cancel(pendingIntent);
+  }
 }
 
 

@@ -11,14 +11,14 @@
         android:layout_height="wrap_content"
         android:paddingBottom="15dp"
         android:text="Here you can setup an Alert to notify you of an earthquake"
-        android:textAlignment="center"
+        android:textAlignment="textStart"
         android:textSize="18sp"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="How often in MINUTES should the app check for new earthquakes? More frequent check will notify you sooner but drain your battery faster."
-        android:textAlignment="center"
+        android:textAlignment="textStart"
         android:textSize="18sp"/>
 
     <EditText
@@ -33,7 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Limit notifications to earthquakes over this magnitude"
-        android:textAlignment="center"
+        android:textAlignment="textStart"
         android:textSize="18sp"/>
 
     <EditText
@@ -47,8 +47,8 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Limit notifications to earthquakes within this proximity"
-        android:textAlignment="center"
+        android:text="Limit notifications to earthquakes within this many kilometers"
+        android:textAlignment="textStart"
         android:textSize="18sp"/>
 
     <EditText
@@ -64,5 +64,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Activate Alert"/>
+    <Button
+        android:id="@+id/alertDeactivateBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="DeActivate Alert"/>
 
 </LinearLayout>
