@@ -47,9 +47,7 @@ public class QuakeListFragment extends Fragment {
   @Override
   public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
     super.onViewStateRestored(savedInstanceState);
-    if(savedInstanceState != null) {
-      EventBus.getDefault().register(this);
-    }
+    EventBus.getDefault().register(this);
   }
 
   private void setupRecyclerView(View v) {
