@@ -13,8 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.mikeaubie.finalproject.Activities.MainActivity;
+import com.mikeaubie.finalproject.Models.EarthQuake;
+import com.mikeaubie.finalproject.Models.EarthQuakes;
 import com.mikeaubie.finalproject.R;
 import com.mikeaubie.finalproject.Services.QuakeService;
 
@@ -49,6 +52,8 @@ public class NotificationsFragment extends Fragment {
         double mag = Double.parseDouble(magAlertSize.getText().toString());
         int prox = Integer.parseInt(proximityAlertSize.getText().toString());
         int refresh = Integer.parseInt(refreshRate.getText().toString());
+
+        //Toast.makeText(EarthQuakes.context, "TESTIT", Toast.LENGTH_SHORT).show();
         startQuakeService(mag, prox, refresh);
       }
     });

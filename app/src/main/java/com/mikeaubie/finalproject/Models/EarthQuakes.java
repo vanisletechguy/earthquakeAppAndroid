@@ -1,5 +1,6 @@
 package com.mikeaubie.finalproject.Models;
 
+import android.content.Context;
 import android.widget.Toast;
 
 import com.google.android.gms.location.LocationServices;
@@ -25,7 +26,7 @@ public class EarthQuakes {
 
   public static ArrayList<EarthQuake> mEarthQuakeList = new ArrayList<>();
   public static LatLng lastKnownLocation = new LatLng(49.708652, -124.971147);
-
+  public static Context context;
   public static ArrayList<EarthQuake> filteredQuakes() {
 
     ArrayList<EarthQuake> magfilteredList = new ArrayList<>();

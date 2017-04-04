@@ -28,8 +28,11 @@ import com.mikeaubie.finalproject.Models.EarthQuakes;
 import com.mikeaubie.finalproject.Models.FetchQuakeData;
 import com.mikeaubie.finalproject.Services.QuakeService;
 import com.mikeaubie.finalproject.R;
+import com.mikeaubie.finalproject.Services.QuakeServiceReciever;
 
 import net.danlew.android.joda.JodaTimeAndroid;
+
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
   public NavigationDrawerFragment drawerFragment = null;
@@ -41,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     JodaTimeAndroid.init(this);
     setContentView(R.layout.activity_main);
-    //EventBus.getDefault().register(this);
+    EarthQuakes.context = this;
 
     if (savedInstanceState == null) {
       WelcomeFragment welcomeFragment = new WelcomeFragment();
@@ -75,9 +78,6 @@ public class MainActivity extends AppCompatActivity {
       @Override
       public void onClick(DialogInterface dialog, int which) {
         alertResponse = input.getText().toString();
-//        Toast.makeText(getApplicationContext(), alertResponse,
-//                Toast.LENGTH_LONG).show();
-
         try{
           int dayFilterInput = Integer.parseInt(alertResponse);
           EarthQuakes.dateFilterValue = dayFilterInput;
@@ -115,7 +115,6 @@ public class MainActivity extends AppCompatActivity {
   public boolean filterByMagnitude(final MenuItem item) {
     AlertDialog.Builder builder = new AlertDialog.Builder(this);
     builder.setTitle("Show only Magnitudes Above this value:");
-  // Set up the input
     final EditText input = new EditText(this);
     input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_CLASS_NUMBER);
     builder.setView(input);
@@ -123,8 +122,6 @@ public class MainActivity extends AppCompatActivity {
       @Override
       public void onClick(DialogInterface dialog, int which) {
         alertResponse = input.getText().toString();
-//        Toast.makeText(getApplicationContext(),
-//                alertResponse, Toast.LENGTH_LONG).show();
         try{
           Double magFilterInput = Double.parseDouble(alertResponse);
           EarthQuakes.magFilterValue = magFilterInput;
@@ -251,9 +248,45 @@ public class MainActivity extends AppCompatActivity {
 
     AlarmManager processTimer = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
     Intent intent = new Intent(this, QuakeService.class);
-    PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0,  intent, 0);
+    //
+    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    //PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0,  intent, 0);
+
+
+    Calendar calendar = Calendar.getInstance();
+    calendar.set(Calendar.HOUR, 3);
+    calendar.set(Calendar.MINUTE, 29);
+    calendar.set(Calendar.AM_PM, Calendar.PM);
+
     startService(intent);
-    //processTimer.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(),refresh * 1000, pendingIntent);
+   // processTimer.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 1000, pendingIntent);
+    intent = new Intent(this, QuakeServiceReciever.class);
+    PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0,  intent, 0);
+    processTimer.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 5000, pendingIntent);
+
+
+
+    AlarmManager alarm = (AlarmManager)getSystemService(ALARM_SERVICE);
+    alarm.set(
+            // This alarm will wake up the device when System.currentTimeMillis()
+            // equals the second argument value
+            alarm.RTC_WAKEUP,
+            System.currentTimeMillis() + (1000 * 60 * 60), // One hour from now
+            // PendingIntent.getService creates an Intent that will start a service
+            // when it is called. The first argument is the Context that will be used
+            // when delivering this intent. Using this has worked for me. The second
+            // argument is a request code. You can use this code to cancel the
+            // pending intent if you need to. Third is the intent you want to
+            // trigger. In this case I want to create an intent that will start my
+            // service. Lastly you can optionally pass flags.
+            PendingIntent.getService(this, 0, new Intent(this, QuakeService.class), 0)
+    );
+
+
+
+
+
+
   }
 }
 
