@@ -1,6 +1,7 @@
 package com.mikeaubie.finalproject.Fragments;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
 import com.mikeaubie.finalproject.Adapters.QuakeAdapter;
 import com.mikeaubie.finalproject.Eventbus.Events;
 import com.mikeaubie.finalproject.Models.EarthQuake;
@@ -23,20 +25,35 @@ import java.util.ArrayList;
  */
 public class QuakeListFragment extends Fragment {
   private QuakeAdapter quakeAdapter = null;
+  private View view;
+  RecyclerView recyclerView;
   public QuakeListFragment() {
   }
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
                            Bundle savedInstanceState) {
-    View view = inflater.inflate(R.layout.fragment_quake_list,
+    view = inflater.inflate(R.layout.fragment_quake_list,
             container, false);
     setupRecyclerView(view);
     return view;
   }
 
+  @Override
+  public void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+  }
+
+  @Override
+  public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+    super.onViewStateRestored(savedInstanceState);
+    if(savedInstanceState != null) {
+      EventBus.getDefault().register(this);
+    }
+  }
+
   private void setupRecyclerView(View v) {
-    RecyclerView recyclerView = (RecyclerView)
+    recyclerView = (RecyclerView)
             v.findViewById(R.id.recyclerView);
     quakeAdapter = new QuakeAdapter((ArrayList) EarthQuakes.filteredQuakes(),
             getContext());
@@ -51,8 +68,9 @@ public class QuakeListFragment extends Fragment {
   @Override
   public void onStart() {
     super.onStart();
-    EventBus.getDefault().register(this);
+
   }
+
 
   @Override
   public void onStop() {
@@ -62,6 +80,7 @@ public class QuakeListFragment extends Fragment {
 
   @Subscribe
   public void NewMarkerMessage(Events.NewMarkerMessage newMarkerMessage) {
+
     ArrayList<EarthQuake> quakeList = EarthQuakes.filteredQuakes();
     Toast.makeText(getContext(),"Showing " +
             EarthQuakes.filteredQuakes().size() + " quakes out of " +
