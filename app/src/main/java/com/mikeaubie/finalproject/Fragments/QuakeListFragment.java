@@ -25,15 +25,13 @@ import java.util.ArrayList;
  */
 public class QuakeListFragment extends Fragment {
   private QuakeAdapter quakeAdapter = null;
-  private View view;
-  RecyclerView recyclerView;
   public QuakeListFragment() {
   }
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
                            Bundle savedInstanceState) {
-    view = inflater.inflate(R.layout.fragment_quake_list,
+    View view = inflater.inflate(R.layout.fragment_quake_list,
             container, false);
     setupRecyclerView(view);
     return view;
@@ -47,11 +45,11 @@ public class QuakeListFragment extends Fragment {
   @Override
   public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
     super.onViewStateRestored(savedInstanceState);
-    EventBus.getDefault().register(this);
+    //EventBus.getDefault().register(this);
   }
 
   private void setupRecyclerView(View v) {
-    recyclerView = (RecyclerView)
+    RecyclerView recyclerView = (RecyclerView)
             v.findViewById(R.id.recyclerView);
     quakeAdapter = new QuakeAdapter((ArrayList) EarthQuakes.filteredQuakes(),
             getContext());
@@ -66,7 +64,7 @@ public class QuakeListFragment extends Fragment {
   @Override
   public void onStart() {
     super.onStart();
-
+    EventBus.getDefault().register(this);
   }
 
 

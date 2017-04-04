@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
+import android.util.AttributeSet;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -48,13 +49,13 @@ public class MainActivity extends AppCompatActivity {
       FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
       ft.add(R.id.flContainer, welcomeFragment);
       ft.commit();
+
+      final String url =
+              "http://www.earthquakescanada.nrcan.gc.ca/api/v2/locations/latest/7d.json";
+      new FetchQuakeData(this, url);
     }
     setUpToolbar();
     setUpNavDrawer();
-
-    final String url =
-    "http://www.earthquakescanada.nrcan.gc.ca/api/v2/locations/latest/7d.json";
-    new FetchQuakeData(this, url);
   }
 
   private void setUpToolbar() {
@@ -206,25 +207,20 @@ public class MainActivity extends AppCompatActivity {
   }
 
   public void fetchData7Day(View v) {
-    if (EarthQuakes.mEarthQuakeList.size() < 1) {
-      final String url =
-              "http://www.earthquakescanada.nrcan.gc.ca/api/v2/locations/latest/7d.json";
-      new FetchQuakeData(this, url);
-    }
+    final String url =
+            "http://www.earthquakescanada.nrcan.gc.ca/api/v2/locations/latest/7d.json";
+    FetchQuakeData fetchQuakeData = new FetchQuakeData(this, url);
+
   }
 
   public void fetchData30Day(View v) {
-    if (EarthQuakes.mEarthQuakeList.size() < 1) {
-      final String url = "http://www.earthquakescanada.nrcan.gc.ca/api/v2/locations/latest/30d.json";
-      new FetchQuakeData(this, url);
-    }
+    final String url = "http://www.earthquakescanada.nrcan.gc.ca/api/v2/locations/latest/30d.json";
+    FetchQuakeData fetchQuakeData = new FetchQuakeData(this, url);
   }
 
   public void fetchData1Year(View v) {
-    if (EarthQuakes.mEarthQuakeList.size() < 1) {
-      final String url = "http://www.earthquakescanada.nrcan.gc.ca/api/v2/locations/latest/365d.json";
-      new FetchQuakeData(this, url);
-    }
+    final String url = "http://www.earthquakescanada.nrcan.gc.ca/api/v2/locations/latest/365d.json";
+    FetchQuakeData fetchQuakeData = new FetchQuakeData(this, url);
   }
 
   public void showData(View v) {
