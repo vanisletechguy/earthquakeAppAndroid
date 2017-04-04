@@ -48,16 +48,18 @@ public class MainActivity extends AppCompatActivity {
       FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
       ft.add(R.id.flContainer, welcomeFragment);
       ft.commit();
-      setUpToolbar();
-      setUpNavDrawer();
     }
+    setUpToolbar();
+    setUpNavDrawer();
   }
 
   private void setUpToolbar() {
     toolbar = (Toolbar) findViewById(R.id.toolbar);
     toolbar.setTitle("Canadian Quake Monitor");
     toolbar.inflateMenu(R.menu.menu_list);
-
+    toolbar.getMenu().findItem(R.id.filterByDate).setChecked(EarthQuakes.dateFilter);
+    toolbar.getMenu().findItem(R.id.filterByMagnitude).setChecked(EarthQuakes.magnitudeFilter);
+    toolbar.getMenu().findItem(R.id.filterByProximity).setChecked(EarthQuakes.dateFilter);
   }
 
   public boolean filterByDate(final MenuItem item) {
@@ -73,8 +75,8 @@ public class MainActivity extends AppCompatActivity {
       @Override
       public void onClick(DialogInterface dialog, int which) {
         alertResponse = input.getText().toString();
-        Toast.makeText(getApplicationContext(), alertResponse,
-                Toast.LENGTH_LONG).show();
+//        Toast.makeText(getApplicationContext(), alertResponse,
+//                Toast.LENGTH_LONG).show();
 
         try{
           int dayFilterInput = Integer.parseInt(alertResponse);
@@ -121,8 +123,8 @@ public class MainActivity extends AppCompatActivity {
       @Override
       public void onClick(DialogInterface dialog, int which) {
         alertResponse = input.getText().toString();
-        Toast.makeText(getApplicationContext(),
-                alertResponse, Toast.LENGTH_LONG).show();
+//        Toast.makeText(getApplicationContext(),
+//                alertResponse, Toast.LENGTH_LONG).show();
         try{
           Double magFilterInput = Double.parseDouble(alertResponse);
           EarthQuakes.magFilterValue = magFilterInput;

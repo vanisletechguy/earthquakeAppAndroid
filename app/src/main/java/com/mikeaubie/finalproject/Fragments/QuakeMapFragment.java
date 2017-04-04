@@ -106,7 +106,7 @@ public class QuakeMapFragment extends Fragment implements LocationListener {
     ArrayList<EarthQuake> quakeList = EarthQuakes.filteredQuakes();
 
     for (int index = 0; index < quakeList.size(); index++) {
-      Toast.makeText(getContext().getApplicationContext(), quakeList.get(index).getMagnitude().toString(), Toast.LENGTH_LONG).show();
+     // Toast.makeText(getContext().getApplicationContext(), quakeList.get(index).getMagnitude().toString(), Toast.LENGTH_LONG).show();
       LatLng latlngNewMarker = quakeList.get(index).getLocation();
 
 

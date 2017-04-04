@@ -84,7 +84,7 @@ public class QuakeListFragment extends Fragment {
 
     ArrayList<EarthQuake> quakeList = EarthQuakes.filteredQuakes();
 
-    Toast.makeText(getContext(), EarthQuakes.filteredQuakes().size() + "All quakes: " + EarthQuakes.mEarthQuakeList.size(), Toast.LENGTH_LONG).show();
+    Toast.makeText(getContext(),"Showing " + EarthQuakes.filteredQuakes().size() + " quakes out of " + EarthQuakes.mEarthQuakeList.size(), Toast.LENGTH_LONG).show();
 
     RecyclerView recyclerView = (RecyclerView) getView().findViewById(R.id.recyclerView);
     QuakeAdapter quakeAdapter = (QuakeAdapter)recyclerView.getAdapter();
