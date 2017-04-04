@@ -23,7 +23,6 @@ import com.mikeaubie.finalproject.Fragments.NavigationDrawerFragment;
 import com.mikeaubie.finalproject.Fragments.QuakeListFragment;
 import com.mikeaubie.finalproject.Fragments.QuakeMapFragment;
 import com.mikeaubie.finalproject.Fragments.WelcomeFragment;
-import com.mikeaubie.finalproject.Models.EarthQuake;
 import com.mikeaubie.finalproject.Models.EarthQuakes;
 import com.mikeaubie.finalproject.Models.FetchQuakeData;
 import com.mikeaubie.finalproject.Services.QuakeService;
@@ -31,8 +30,6 @@ import com.mikeaubie.finalproject.R;
 import com.mikeaubie.finalproject.Services.QuakeServiceReciever;
 
 import net.danlew.android.joda.JodaTimeAndroid;
-
-import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
   public NavigationDrawerFragment drawerFragment = null;
@@ -54,31 +51,36 @@ public class MainActivity extends AppCompatActivity {
     }
     setUpToolbar();
     setUpNavDrawer();
+
+    final String url =
+    "http://www.earthquakescanada.nrcan.gc.ca/api/v2/locations/latest/7d.json";
+    new FetchQuakeData(this, url);
   }
 
   private void setUpToolbar() {
     toolbar = (Toolbar) findViewById(R.id.toolbar);
     toolbar.setTitle("Canadian Quake Monitor");
     toolbar.inflateMenu(R.menu.menu_list);
-    toolbar.getMenu().findItem(R.id.filterByDate).setChecked(EarthQuakes.dateFilter);
-    toolbar.getMenu().findItem(R.id.filterByMagnitude).setChecked(EarthQuakes.magnitudeFilter);
-    toolbar.getMenu().findItem(R.id.filterByProximity).setChecked(EarthQuakes.dateFilter);
+    toolbar.getMenu().findItem(R.id.filterByDate)
+            .setChecked(EarthQuakes.dateFilter);
+    toolbar.getMenu().findItem(R.id.filterByMagnitude)
+            .setChecked(EarthQuakes.magnitudeFilter);
+    toolbar.getMenu().findItem(R.id.filterByProximity)
+            .setChecked(EarthQuakes.dateFilter);
   }
 
   public boolean filterByDate(final MenuItem item) {
     AlertDialog.Builder builder = new AlertDialog.Builder(this);
     builder.setTitle("Within how many days?");
-  // Set up the input
+    // Set up the input
     final EditText input = new EditText(this);
     input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_CLASS_NUMBER);
     builder.setView(input);
-
-  // Set up the buttons
     builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
       @Override
       public void onClick(DialogInterface dialog, int which) {
         alertResponse = input.getText().toString();
-        try{
+        try {
           int dayFilterInput = Integer.parseInt(alertResponse);
           EarthQuakes.dateFilterValue = dayFilterInput;
           EarthQuakes.dateFilter = true;
@@ -88,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
                   new Events.NewMarkerMessage();
           GlobalBus.getBus().postSticky(newMarkerMessage);
 
-        }catch (Exception ex) {
+        } catch (Exception ex) {
           Toast.makeText(getApplicationContext(),
                   "Not a valid number of days - Try 15",
                   Toast.LENGTH_LONG).show();
@@ -106,9 +108,7 @@ public class MainActivity extends AppCompatActivity {
         GlobalBus.getBus().postSticky(newMarkerMessage);
       }
     });
-
     builder.show();
-
     return true;
   }
 
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
       @Override
       public void onClick(DialogInterface dialog, int which) {
         alertResponse = input.getText().toString();
-        try{
+        try {
           Double magFilterInput = Double.parseDouble(alertResponse);
           EarthQuakes.magFilterValue = magFilterInput;
           EarthQuakes.magnitudeFilter = true;
@@ -155,18 +155,18 @@ public class MainActivity extends AppCompatActivity {
   public boolean filterByProximity(final MenuItem item) {
     AlertDialog.Builder builder = new AlertDialog.Builder(this);
     builder.setTitle("Within how many km?");
-  // Set up the input
+    // Set up the input
     final EditText input = new EditText(this);
     input.setInputType(
-            InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            InputType.TYPE_CLASS_TEXT | InputType.TYPE_CLASS_NUMBER);
     builder.setView(input);
 
-  // Set up the buttons
+    // Set up the buttons
     builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
       @Override
       public void onClick(DialogInterface dialog, int which) {
         alertResponse = input.getText().toString();
-        try{
+        try {
           int proxFilterInput = Integer.parseInt(alertResponse);
           EarthQuakes.proximityFilterValue = proxFilterInput;
           EarthQuakes.proximityFilter = true;
@@ -207,27 +207,27 @@ public class MainActivity extends AppCompatActivity {
 
   public void fetchData7Day(View v) {
     if (EarthQuakes.mEarthQuakeList.size() < 1) {
-      final String url = "http://www.earthquakescanada.nrcan.gc.ca/api/v2/locations/latest/7d.json";
-      FetchQuakeData fetchedData = new FetchQuakeData(this, url);
+      final String url =
+              "http://www.earthquakescanada.nrcan.gc.ca/api/v2/locations/latest/7d.json";
+      new FetchQuakeData(this, url);
     }
   }
 
   public void fetchData30Day(View v) {
     if (EarthQuakes.mEarthQuakeList.size() < 1) {
       final String url = "http://www.earthquakescanada.nrcan.gc.ca/api/v2/locations/latest/30d.json";
-      FetchQuakeData fetchedData = new FetchQuakeData(this, url);
+      new FetchQuakeData(this, url);
     }
   }
 
   public void fetchData1Year(View v) {
     if (EarthQuakes.mEarthQuakeList.size() < 1) {
       final String url = "http://www.earthquakescanada.nrcan.gc.ca/api/v2/locations/latest/365d.json";
-      FetchQuakeData fetchedData = new FetchQuakeData(this, url);
+      new FetchQuakeData(this, url);
     }
   }
 
   public void showData(View v) {
-
     QuakeListFragment quakeListFragment = new QuakeListFragment();
     FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
     ft.replace(R.id.flContainer, quakeListFragment);
@@ -245,48 +245,16 @@ public class MainActivity extends AppCompatActivity {
     QuakeService.magAlertFilter = magnitude;
     QuakeService.proximityAlertFilter = proximity;
     QuakeService.refreshAlertFilter = refresh;
-
-    AlarmManager processTimer = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+    AlarmManager processTimer =
+            (AlarmManager) getSystemService(Context.ALARM_SERVICE);
     Intent intent = new Intent(this, QuakeService.class);
-    //
     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-    //PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0,  intent, 0);
-
-
-    Calendar calendar = Calendar.getInstance();
-    calendar.set(Calendar.HOUR, 3);
-    calendar.set(Calendar.MINUTE, 29);
-    calendar.set(Calendar.AM_PM, Calendar.PM);
-
     startService(intent);
-   // processTimer.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 1000, pendingIntent);
     intent = new Intent(this, QuakeServiceReciever.class);
-    PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0,  intent, 0);
-    processTimer.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 5000, pendingIntent);
-
-
-
-    AlarmManager alarm = (AlarmManager)getSystemService(ALARM_SERVICE);
-    alarm.set(
-            // This alarm will wake up the device when System.currentTimeMillis()
-            // equals the second argument value
-            alarm.RTC_WAKEUP,
-            System.currentTimeMillis() + (1000 * 60 * 60), // One hour from now
-            // PendingIntent.getService creates an Intent that will start a service
-            // when it is called. The first argument is the Context that will be used
-            // when delivering this intent. Using this has worked for me. The second
-            // argument is a request code. You can use this code to cancel the
-            // pending intent if you need to. Third is the intent you want to
-            // trigger. In this case I want to create an intent that will start my
-            // service. Lastly you can optionally pass flags.
-            PendingIntent.getService(this, 0, new Intent(this, QuakeService.class), 0)
-    );
-
-
-
-
-
-
+    PendingIntent pendingIntent =
+            PendingIntent.getBroadcast(this, 0, intent, 0);
+    processTimer.setRepeating(AlarmManager.RTC_WAKEUP,
+            System.currentTimeMillis(), 60000 * refresh, pendingIntent);
   }
 }
 

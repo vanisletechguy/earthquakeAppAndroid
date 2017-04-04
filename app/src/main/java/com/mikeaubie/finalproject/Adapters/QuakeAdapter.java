@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Family on 3/24/2017.
+ * Created by Michael Aubie on 3/24/2017.
  */
 
 public class QuakeAdapter extends
@@ -36,7 +36,6 @@ public class QuakeAdapter extends
     return holder;
   }
 
-
   @Override
   public int getItemCount() {
     return mData.size();
@@ -51,7 +50,6 @@ public class QuakeAdapter extends
   public void swap(ArrayList<EarthQuake> newData){
     mData.clear();
     mData.addAll(newData);
-    //notifyDataSetChanged();
   }
 
   class MyViewHolder extends RecyclerView.ViewHolder
@@ -71,24 +69,16 @@ public class QuakeAdapter extends
     }
 
     public void setData(EarthQuake currentObj, int position) {
-
       this.description.setText(currentObj.getLocationDescription());
-      //this.location.setText(currentObj.getLocation().toString());
-      this.magnitude.setText("Magnitude: " + currentObj.getMagnitude().toString());
+      this.magnitude.setText("Magnitude: " +
+              currentObj.getMagnitude().toString());
       this.date.setText(currentObj.getDate().toString());
       this.current = currentObj;
-    }
-
-
-
-
-    public void setListeners() {
     }
 
     @Override
     public void onClick(View v) {
     }
   }
-
 
 }

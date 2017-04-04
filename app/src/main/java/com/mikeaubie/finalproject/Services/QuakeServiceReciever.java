@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.widget.Toast;
 
 /**
- * Created by Family on 4/3/2017.
+ * Created by Michael Aubie on 4/3/2017.
  */
 public class QuakeServiceReciever extends BroadcastReceiver {
   @Override

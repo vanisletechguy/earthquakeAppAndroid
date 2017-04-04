@@ -29,7 +29,7 @@ import java.util.Iterator;
 import org.json.*;
 
 /**
- * Created by Family on 3/24/2017.
+ * Created by Michael Aubie on 3/24/2017.
  */
 
 public class FetchQuakeData {
@@ -42,39 +42,57 @@ public class FetchQuakeData {
               @Override
               public void onResponse(JSONObject response) {
                 try {
-                  Iterator<?> keys = response.keys(); ///returns in reverse order
+                  Iterator<?> keys = response.keys();
                   while (keys.hasNext()) {
                     String key = (String) keys.next();
                     if (response.get(key) instanceof JSONObject) {
                       JSONObject currentChild = (JSONObject) response.get(key);
                       if (key.equalsIgnoreCase("metadata")) {
                       } else {
-                        JSONObject coordObject = (JSONObject) currentChild.get("geoJSON");
-                        JSONArray coordArray = (JSONArray) coordObject.get("coordinates");
-                        LatLng newCoord = new LatLng(Double.parseDouble(coordArray.get(0).toString()), Double.parseDouble(coordArray.get(1).toString()));
+                        JSONObject coordObject =
+                                (JSONObject) currentChild.get("geoJSON");
+                        JSONArray coordArray =
+                                (JSONArray) coordObject.get("coordinates");
+                        LatLng newCoord = new LatLng(Double.parseDouble(
+                                coordArray.get(0).toString()),
+                                Double.parseDouble(
+                                        coordArray.get(1).toString()));
                         Date date = new Date(); ///  origin_time
-                        String newDate = (String) currentChild.get("origin_time");
-                        DateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+                        String newDate =
+                                (String) currentChild.get("origin_time");
+                        DateFormat dateformat =
+                                new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
                         try {
                           long newTime = dateformat.parse(newDate).getTime();
                           date.setTime(dateformat.parse(newDate).getTime());
                         } catch (ParseException ex) {
-                          Toast.makeText(context, "FAILED on DATE", Toast.LENGTH_LONG).show();
+                          Toast.makeText(context, "FAILED on DATE",
+                                  Toast.LENGTH_LONG).show();
                         }
-                        int localTimeUTCOffset = Integer.parseInt(currentChild.get("local_time_utc_offset").toString());
-                        int localTimeDSTOffset = Integer.parseInt(currentChild.get("local_time_dst_offset").toString());
-                        double depthInKM = Double.parseDouble(currentChild.get("depth").toString());
-                        Double magnitude = Double.parseDouble(currentChild.get("magnitude").toString());
-                        JSONObject locationObject = (JSONObject) currentChild.get("location");
-                        String locationDescription = locationObject.get("en").toString();
-                        EarthQuake newQuake = new EarthQuake(newCoord, date, localTimeUTCOffset,
-                                localTimeDSTOffset, depthInKM, magnitude, locationDescription);
+                        int localTimeUTCOffset = Integer.parseInt(
+                                currentChild.get(
+                                        "local_time_utc_offset").toString());
+                        int localTimeDSTOffset = Integer.parseInt(
+                                currentChild.get(
+                                        "local_time_dst_offset").toString());
+                        double depthInKM = Double.parseDouble(
+                                currentChild.get("depth").toString());
+                        Double magnitude = Double.parseDouble(
+                                currentChild.get("magnitude").toString());
+                        JSONObject locationObject =
+                                (JSONObject) currentChild.get("location");
+                        String locationDescription =
+                                locationObject.get("en").toString();
+                        EarthQuake newQuake = new EarthQuake(newCoord, date,
+                                localTimeUTCOffset, localTimeDSTOffset,
+                                depthInKM, magnitude, locationDescription);
                         EarthQuakes.mEarthQuakeList.add(newQuake);
                       }
                     }
                   }
                 } catch (JSONException ex) {
-                  Toast.makeText(context, "ERROR: " + ex.toString(), Toast.LENGTH_LONG).show();
+                  Toast.makeText(context, "ERROR: " + ex.toString(),
+                          Toast.LENGTH_LONG).show();
                 }
               }
             }, new Response.ErrorListener() {
@@ -82,11 +100,12 @@ public class FetchQuakeData {
               @Override
               public void onErrorResponse(VolleyError error) {
                 // TODO Auto-generated method stub
-                Toast.makeText(context, error.toString(), Toast.LENGTH_LONG).show();
-                //System.out.print(error);
+                Toast.makeText(context, error.toString(),
+                        Toast.LENGTH_LONG).show();
               }
             });
 
-    Volley.newRequestQueue(context.getApplicationContext()).add(jsonObjectRequest);
+    Volley.newRequestQueue(context.getApplicationContext())
+            .add(jsonObjectRequest);
   }
 }

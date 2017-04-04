@@ -3,7 +3,7 @@ package com.mikeaubie.finalproject.Eventbus;
 import org.greenrobot.eventbus.EventBus;
 
 /**
- * Created by Family on 3/30/2017.
+ * Created by Michael Aubie on 3/30/2017.
  */
 
 public class GlobalBus {

@@ -1,19 +1,13 @@
 package com.mikeaubie.finalproject.Models;
 
 import android.content.Context;
-import android.widget.Toast;
-
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.model.IndoorBuilding;
 import com.google.android.gms.maps.model.LatLng;
-
 import org.joda.time.DateTime;
 import org.joda.time.Days;
-
 import java.util.ArrayList;
 
 /**
- * Created by Family on 3/24/2017.
+ * Created by Michael Aubie on 3/24/2017.
  */
 
 public class EarthQuakes {
@@ -64,7 +58,6 @@ public class EarthQuakes {
     }
     return magfilteredList;
   }
-
 
   public EarthQuakes() {
   }

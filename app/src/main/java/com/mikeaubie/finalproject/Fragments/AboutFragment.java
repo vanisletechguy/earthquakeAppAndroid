@@ -10,20 +10,16 @@ import android.view.ViewGroup;
 import com.mikeaubie.finalproject.R;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Created by Michael Aubie March 02 2017
  */
 public class AboutFragment extends Fragment {
 
-
   public AboutFragment() {
-    // Required empty public constructor
   }
-
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
                            Bundle savedInstanceState) {
-    // Inflate the layout for this fragment
     return inflater.inflate(R.layout.fragment_about, container, false);
   }
 

@@ -77,8 +77,8 @@ public class NavigationDrawerAdapter extends
           ft.replace(R.id.flContainer, quakeMapFragment);
         } else if (holder.title.getText().toString() ==
                 "Notifications Settings") {
-          //((MainActivity) context).startQuakeService();
-          NotificationsFragment notificationsFragment = new NotificationsFragment();
+          NotificationsFragment notificationsFragment =
+                  new NotificationsFragment();
           ft.replace(R.id.flContainer, notificationsFragment);
         } else if (holder.title.getText().toString() ==
                 "About Application") {
@@ -101,7 +101,6 @@ public class NavigationDrawerAdapter extends
 
   class MyViewHolder extends RecyclerView.ViewHolder {
     TextView title;
-    ImageView imgIcon;
 
     public MyViewHolder(View itemView) {
       super(itemView);
